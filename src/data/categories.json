@@ -1,0 +1,194 @@
+{
+  "videoWorks": {
+    "aigc": [
+      {
+        "id": "aigc-001",
+        "title": "数字梦境",
+        "titleEn": "Digital Dreams",
+        "category": "AIGC影像",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+AI+generated+cyberpunk+cityscape+neon+lights+futuristic+architecture+film+noir+aesthetic+dramatic+lighting+4K+quality&image_size=landscape_16_9",
+        "duration": "05:30",
+        "description": "运用AI技术生成的赛博朋克风格城市景观,探索数字时代的视觉边界"
+      },
+      {
+        "id": "aigc-002",
+        "title": "量子花园",
+        "titleEn": "Quantum Garden",
+        "category": "AIGC影像",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Surreal+AI+generated+nature+landscape+quantum+particles+ethereal+flowers+cinematic+lighting+dreamlike+atmosphere+professional+quality&image_size=landscape_16_9",
+        "duration": "04:15",
+        "description": "AI算法生成的超现实主义自然景观,展现科技与自然的融合"
+      }
+    ],
+    "documentary": [
+      {
+        "id": "doc-001",
+        "title": "城市记忆",
+        "titleEn": "City Memories",
+        "category": "纪录片",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Documentary+film+still+urban+life+street+scenes+people+walking+cinematic+lighting+realistic+style+professional+photography+4K&image_size=landscape_16_9",
+        "duration": "18:00",
+        "description": "记录城市变迁与人文故事,展现都市生活的真实面貌"
+      },
+      {
+        "id": "doc-002",
+        "title": "匠心传承",
+        "titleEn": "Craftsmanship",
+        "category": "纪录片",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Documentary+film+traditional+craftsman+working+in+workshop+warm+natural+light+cinematic+depth+of+field+professional+film+quality&image_size=landscape_16_9",
+        "duration": "22:00",
+        "description": "探访传统手工艺人,记录濒临消失的技艺传承"
+      }
+    ],
+    "special": [
+      {
+        "id": "special-001",
+        "title": "光影之间",
+        "titleEn": "Between Light and Shadow",
+        "category": "专题片",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+documentary+film+still+artist+studio+painting+process+dramatic+lighting+chiaroscuro+effect+professional+film+aesthetic+4K&image_size=landscape_16_9",
+        "duration": "15:00",
+        "description": "深入艺术家创作空间,探索艺术创作的内心世界"
+      },
+      {
+        "id": "special-002",
+        "title": "时代印记",
+        "titleEn": "Marks of Time",
+        "category": "专题片",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Documentary+film+historical+building+architecture+golden+hour+lighting+cinematic+composition+professional+photography+film+quality&image_size=landscape_16_9",
+        "duration": "20:00",
+        "description": "记录历史建筑背后的故事,展现时代变迁的痕迹"
+      }
+    ],
+    "commercial": [
+      {
+        "id": "comm-001",
+        "title": "品牌故事",
+        "titleEn": "Brand Story",
+        "category": "宣传片",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Commercial+film+still+modern+office+business+people+professional+lighting+clean+composition+corporate+aesthetic+4K+quality&image_size=landscape_16_9",
+        "duration": "03:00",
+        "description": "企业品牌形象宣传片,展现品牌价值与企业文化"
+      },
+      {
+        "id": "comm-002",
+        "title": "产品印象",
+        "titleEn": "Product Impression",
+        "category": "宣传片",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Commercial+product+photography+elegant+minimalist+design+soft+lighting+premium+aesthetic+professional+film+quality+4K&image_size=landscape_16_9",
+        "duration": "02:30",
+        "description": "高端产品宣传片,突出产品特色与品质"
+      }
+    ]
+  },
+  "photoWorks": {
+    "news": [
+      {
+        "id": "news-001",
+        "title": "城市脉动",
+        "titleEn": "City Pulse",
+        "category": "新闻摄影",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=News+photography+urban+scene+crowded+street+people+rushing+dramatic+lighting+documentary+style+professional+photojournalism+4K&image_size=landscape_16_9",
+        "description": "捕捉城市生活的瞬间,记录都市发展的脉动"
+      },
+      {
+        "id": "news-002",
+        "title": "社会焦点",
+        "titleEn": "Social Focus",
+        "category": "新闻摄影",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Photojournalism+social+event+people+gathering+documentary+photography+natural+lighting+professional+news+photo+quality&image_size=landscape_16_9",
+        "description": "关注社会热点事件,用镜头记录真实瞬间"
+      }
+    ],
+    "feature": [
+      {
+        "id": "feature-001",
+        "title": "匠心独运",
+        "titleEn": "Unique Craftsmanship",
+        "category": "专题摄影",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Documentary+photography+traditional+craftsman+hands+working+detailed+close+up+warm+lighting+professional+editorial+photo+4K&image_size=landscape_16_9",
+        "description": "专题记录传统手工艺人的精湛技艺"
+      },
+      {
+        "id": "feature-002",
+        "title": "乡村印象",
+        "titleEn": "Rural Impressions",
+        "category": "专题摄影",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Documentary+photography+rural+life+traditional+village+golden+hour+lighting+cinematic+landscape+professional+photo+essay+quality&image_size=landscape_16_9",
+        "description": "记录乡村生活的变迁与坚守"
+      }
+    ],
+    "art": [
+      {
+        "id": "art-001",
+        "title": "光影诗篇",
+        "titleEn": "Light and Shadow Poetry",
+        "category": "艺术摄影",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Fine+art+photography+abstract+light+and+shadow+minimalist+composition+dramatic+contrast+gallery+quality+professional+artistic+photo+4K&image_size=landscape_16_9",
+        "description": "用光影构建视觉诗篇,探索摄影艺术的边界"
+      },
+      {
+        "id": "art-002",
+        "title": "色彩对话",
+        "titleEn": "Color Dialogue",
+        "category": "艺术摄影",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Fine+art+photography+vibrant+colors+abstract+composition+artistic+expression+gallery+exhibition+quality+professional+art+photo&image_size=landscape_16_9",
+        "description": "色彩与形式的对话,展现摄影的艺术性"
+      }
+    ],
+    "portrait": [
+      {
+        "id": "portrait-001",
+        "title": "人物志",
+        "titleEn": "Portrait Stories",
+        "category": "人像摄影",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Professional+portrait+photography+Chinese+person+confident+expression+studio+lighting+shallow+depth+of+field+high+quality+headshot+4K&image_size=landscape_16_9",
+        "description": "捕捉人物内在气质,展现个性魅力"
+      },
+      {
+        "id": "portrait-002",
+        "title": "生活肖像",
+        "titleEn": "Life Portraits",
+        "category": "人像摄影",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Environmental+portrait+photography+person+in+natural+setting+soft+natural+light+authentic+expression+professional+portrait+quality+4K&image_size=landscape_16_9",
+        "description": "在生活环境中捕捉真实的人物状态"
+      }
+    ],
+    "street": [
+      {
+        "id": "street-001",
+        "title": "街头故事",
+        "titleEn": "Street Stories",
+        "category": "街拍作品",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Street+photography+urban+life+people+walking+city+streets+candid+moment+natural+light+documentary+style+professional+photo+4K&image_size=landscape_16_9",
+        "description": "捕捉街头的瞬间故事,记录城市的日常"
+      },
+      {
+        "id": "street-002",
+        "title": "夜色漫步",
+        "titleEn": "Night Walk",
+        "category": "街拍作品",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Street+photography+night+scene+city+lights+neon+signs+people+walking+rainy+streets+cinematic+lighting+professional+urban+photo+4K&image_size=landscape_16_9",
+        "description": "夜晚街头的光影交错,展现城市的另一面"
+      }
+    ]
+  },
+  "mediaWorks": [
+    {
+      "id": "media-001",
+      "title": "自媒体内容创作",
+      "titleEn": "Content Creation",
+      "category": "自媒体作品",
+      "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Social+media+content+creation+video+production+setup+camera+equipment+modern+studio+professional+lighting+4K+quality&image_size=landscape_16_9",
+      "description": "自媒体平台内容创作与运营"
+    },
+    {
+      "id": "media-002",
+      "title": "短视频创作",
+      "titleEn": "Short Video Creation",
+      "category": "自媒体作品",
+      "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Short+video+production+smartphone+filming+creative+content+making+vibrant+colors+modern+aesthetic+professional+quality+4K&image_size=landscape_16_9",
+      "description": "短视频平台内容策划与制作"
+    }
+  ]
+}
