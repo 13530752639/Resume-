@@ -20,7 +20,7 @@ const photoCategories = [
 ]
 
 export default function WorksCategorySection() {
-  const { currentLevel, navigateTo } = useAppStore()
+  const { currentLevel, navigateTo, selectWork } = useAppStore()
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null)
 
   const getTitle = () => {
@@ -65,7 +65,7 @@ export default function WorksCategorySection() {
   }
 
   const handleWorkClick = (work: any) => {
-    console.log('Work clicked:', work)
+    selectWork(work)
     navigateTo('work-detail')
   }
 

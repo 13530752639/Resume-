@@ -19,14 +19,14 @@ interface AppState {
     category: 'aigc' | 'real-shot'
   } | null
   selectedCategory: WorkCategory | null
-  selectedWork: typeof worksData.aigcWorks[0] | null
+  selectedWork: any | null
   searchQuery: string
-  
+
   navigateTo: (level: NavigationLevel) => void
   openVideoModal: (url: string, title: string, category: 'aigc' | 'real-shot') => void
   closeVideoModal: () => void
   selectCategory: (category: WorkCategory | null) => void
-  selectWork: (work: typeof worksData.aigcWorks[0] | null) => void
+  selectWork: (work: any | null) => void
   setSearchQuery: (query: string) => void
 }
 
@@ -37,21 +37,21 @@ const useAppStore = create<AppState>((set) => ({
   selectedCategory: null,
   selectedWork: null,
   searchQuery: '',
-  
+
   navigateTo: (level) => set({ currentLevel: level }),
-  
+
   openVideoModal: (url, title, category) =>
     set({
       isVideoModalOpen: true,
       currentVideo: { url, title, category }
     }),
-  
+
   closeVideoModal: () =>
     set({
       isVideoModalOpen: false,
       currentVideo: null
     }),
-  
+
   selectCategory: (category) => set({ selectedCategory: category }),
   selectWork: (work) => set({ selectedWork: work }),
   setSearchQuery: (query) => set({ searchQuery: query })
