@@ -9,7 +9,7 @@
         "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+AI+generated+space+station+dancing+astronauts+neon+lights+cosmic+atmosphere+film+quality&image_size=landscape_16_9",
         "duration": "03:20",
         "description": "AI生成动画短片，天宫空间站中的音乐派对",
-        "videoUrl": "/videos/aigc/天宫DISCO（自媒体）.mp4"
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/aigc/天宫DISCO（自媒体）.mp4"
       },
       {
         "id": "aigc-002",
@@ -19,7 +19,7 @@
         "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+mythological+scene+giant+chasing+the+sun+dramatic+skies+epic+lighting+motion+blur+film+quality&image_size=landscape_16_9",
         "duration": "02:45",
         "description": "以AI技术重述夸父逐日神话，传统与现代的碰撞",
-        "videoUrl": "/videos/aigc/夸父逐日2.0.mp4"
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/aigc/夸父逐日2.0.mp4"
       },
       {
         "id": "aigc-003",
@@ -29,7 +29,7 @@
         "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+surreal+home+landscape+warm+interior+floating+memories+emotional+atmosphere+golden+light+film+quality&image_size=landscape_16_9",
         "duration": "04:00",
         "description": "AIGC动画，探讨家的意义与归属感",
-        "videoUrl": "/videos/aigc/AIGC动画《何以为家》 导演.mp4"
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/aigc/AIGC动画《何以为家》 导演.mp4"
       },
       {
         "id": "aigc-004",
@@ -39,7 +39,7 @@
         "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+calendar+date+winter+light+melancholy+atmosphere+dramatic+shadows+emotional+film+still+quality&image_size=landscape_16_9",
         "duration": "05:10",
         "description": "AI实验短片，对时间与记忆的视觉探索",
-        "videoUrl": "/videos/aigc/2月21日(6).mp4"
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/aigc/2月21日(6).mp4"
       },
       {
         "id": "aigc-005",
@@ -49,7 +49,7 @@
         "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+space+exploration+rocket+launch+stars+cosmos+dramatic+lighting+patriotic+mood+film+quality&image_size=landscape_16_9",
         "duration": "01:30",
         "description": "零基础用AI做动画，致敬中国航天事业",
-        "videoUrl": "/videos/aigc/2025中国航天日|零基础新闻人也能做动画了？ - 001 - 2025中国航天日|零基础新闻人也能做动画了？.mp4"
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/aigc/2025中国航天日|零基础新闻人也能做动画了？ - 001 - 2025中国航天日|零基础新闻人也能做动画了？.mp4"
       }
     ],
     "documentary": [
@@ -61,7 +61,7 @@
         "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Documentary+film+still+Chinese+women+empowerment+natural+light+intimate+portrait+warm+tones+professional+cinematography&image_size=landscape_16_9",
         "duration": "10:00",
         "description": "纪录女性力量与社会角色的变迁",
-        "videoUrl": "/videos/documentary/纪录片 《半边天》10min 导演.mp4"
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/documentary/纪录片 《半边天》10min 导演.mp4"
       },
       {
         "id": "doc-002",
@@ -71,7 +71,7 @@
         "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Documentary+film+old+projector+vintage+cinema+warm+nostalgic+lighting+dust+motes+in+light+professional+film+quality&image_size=landscape_16_9",
         "duration": "06:30",
         "description": "记录老电影放映师的坚守与回忆",
-        "videoUrl": "/videos/documentary/时光放映师.mp4"
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/documentary/时光放映师.mp4"
       }
     ],
     "special": [
@@ -83,7 +83,7 @@
         "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Documentary+film+still+memorial+hero+portrait+dramatic+lighting+solemn+atmosphere+historical+photography+film+quality&image_size=landscape_16_9",
         "duration": "04:00",
         "description": "专题纪录片，纪念革命烈士周礼平的英勇事迹",
-        "videoUrl": "/videos/special/周礼平烈士_副本.mp4"
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/special/周礼平烈士_副本.mp4"
       }
     ],
     "commercial": [
@@ -95,7 +95,7 @@
         "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+Harvard+summit+US+China+dialogue+students+discussion+prestigious+university+atmosphere+film+quality&image_size=landscape_16_9",
         "duration": "04:00",
         "description": "哈佛大学中美峰会官方宣传片",
-        "videoUrl": "/videos/commercial/哈佛大学中美峰会《未尽之风》导演.mp4"
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/commercial/哈佛大学中美峰会《未尽之风》导演.mp4"
       },
       {
         "id": "comm-002",
@@ -105,7 +105,7 @@
         "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=CCTV+documentary+film+still+inspiring+story+dream+chaser+dramatic+lighting+professional+broadcast+quality&image_size=landscape_16_9",
         "duration": "02:30",
         "description": "央视合作视频，记录追梦人的故事",
-        "videoUrl": "/videos/commercial/央视视频《逐梦》.mp4"
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/commercial/央视视频《逐梦》.mp4"
       }
     ]
   },
@@ -209,7 +209,7 @@
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Campus+life+dance+performance+students+dancing+energetic+atmosphere+university+fun+moment+professional+video+quality&image_size=landscape_16_9",
       "description": "汕头大学校园抖肩舞创意视频",
-      "videoUrl": "/videos/media/汕头大学抖肩舞2k版 - 001 - 汕头大学抖肩舞2k版.mp4"
+      "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/汕头大学抖肩舞2k版 - 001 - 汕头大学抖肩舞2k版.mp4"
     },
     {
       "id": "media-002",
@@ -218,7 +218,7 @@
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=University+campus+wandering+student+filming+with+camera+natural+light+young+filmmaker+documentary+style&image_size=landscape_16_9",
       "description": "初试街拍，记录汕头大学校园日常",
-      "videoUrl": "/videos/media/我的第一个街拍视频——汕头大学 - 001 - 我的第一个街拍视频——汕头大学.mp4"
+      "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/我的第一个街拍视频——汕头大学 - 001 - 我的第一个街拍视频——汕头大学.mp4"
     },
     {
       "id": "media-003",
@@ -227,7 +227,7 @@
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Chaozhou+culture+traditional+architecture+ancient+streets+teahouse+warm+sunlight+cinematic+depth+film+quality&image_size=landscape_16_9",
       "description": "潮州人文风情短片，展现古城韵味",
-      "videoUrl": "/videos/media/潮州韩韵 - 001 - 潮州韩韵.mp4"
+      "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/潮州韩韵 - 001 - 潮州韩韵.mp4"
     },
     {
       "id": "media-004",
@@ -236,7 +236,7 @@
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Tropical+island+beach+sunset+ocean+waves+travel+adventure+vibrant+warm+light+vlog+style+cinematic+4K&image_size=landscape_16_9",
       "description": "南澳岛旅行记录，海风与阳光的记忆",
-      "videoUrl": "/videos/media/汕头南澳旅行vlog - 001 - 汕头南澳旅行vlog.mp4"
+      "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/汕头南澳旅行vlog - 001 - 汕头南澳旅行vlog.mp4"
     },
     {
       "id": "media-005",
@@ -245,7 +245,7 @@
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cozy+home+interior+person+sitting+by+window+natural+light+contemplative+mood+intimate+cinematic+atmosphere+film+quality&image_size=landscape_16_9",
       "description": "独居生活的兴奋、孤独与期待",
-      "videoUrl": "/videos/media/独居在家，兴奋，孤独，期待 - 001 - 独居在家，兴奋，孤独，期待.mp4"
+      "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/独居在家，兴奋，孤独，期待 - 001 - 独居在家，兴奋，孤独，期待.mp4"
     },
     {
       "id": "media-006",
@@ -254,7 +254,7 @@
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=University+campus+first+snow+winter+students+walking+in+snow+warm+colors+cold+atmosphere+cinematic+documentary+style&image_size=landscape_16_9",
       "description": "中央民族大学的第一场雪，校园冬日记忆",
-      "videoUrl": "/videos/media/那天我们在民大看的第一场雪 - 001 - 那天我们在民大看的第一场雪 -  - 2026-05-27 15-25-38.mp4"
+      "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/那天我们在民大看的第一场雪 - 001 - 那天我们在民大看的第一场雪 -  - 2026-05-27 15-25-38.mp4"
     },
     {
       "id": "media-007",
@@ -263,7 +263,7 @@
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=University+sports+meet+students+competing+track+field+bright+sunlight+energetic+atmosphere+documentary+video+style&image_size=landscape_16_9",
       "description": "用潮汕方言报道汕头大学运动会，地方文化的创意表达",
-      "videoUrl": "/videos/media/我用潮汕话做了一场汕头大学运动会报道 - 001 - 我用潮汕话做了一场汕头大学运动会报道.mp4"
+      "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/我用潮汕话做了一场汕头大学运动会报道 - 001 - 我用潮汕话做了一场汕头大学运动会报道.mp4"
     },
     {
       "id": "media-008",
@@ -272,7 +272,7 @@
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Funny+dorm+room+comedy+students+acting+surprised+dramatic+lighting+humorous+sketch+cinematic+video+style&image_size=landscape_16_9",
       "description": "汕头大学《揭秘一分半》频道创意喜剧短片",
-      "videoUrl": "/videos/media/汕头大学《揭秘一分半》频道之附身的舍友 - 001 - 汕头大学《揭秘一分半》频道之附身的舍友.mp4"
+      "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/汕头大学《揭秘一分半》频道之附身的舍友 - 001 - 汕头大学《揭秘一分半》频道之附身的舍友.mp4"
     },
     {
       "id": "media-009",
@@ -281,7 +281,7 @@
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Office+worker+sitting+at+desk+near+window+pensive+mood+creative+expression+musical+atmosphere+film+quality&image_size=landscape_16_9",
       "description": "五一加班时突然迸发的音乐创作灵感",
-      "videoUrl": "/videos/media/五一在办公室加班的我，一怒之下写了这首歌！ - 001 - 五一在办公室加班的我，一怒之下写了这首歌！.mp4"
+      "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/五一在办公室加班的我，一怒之下写了这首歌！ - 001 - 五一在办公室加班的我，一怒之下写了这首歌！.mp4"
     },
     {
       "id": "media-010",
@@ -290,7 +290,7 @@
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Social+media+content+creation+smartphone+filming+creative+setup+vibrant+colors+modern+aesthetic+professional+quality&image_size=landscape_16_9",
       "description": "自媒体平台综合内容创作集锦",
-      "videoUrl": "/videos/media/13424340674325343.mp4"
+      "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/13424340674325343.mp4"
     }
   ]
 }
