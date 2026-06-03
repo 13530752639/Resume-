@@ -13,12 +13,12 @@
       },
       {
         "id": "aigc-002",
-        "title": "古诗词夸父逐日",
-        "titleEn": "Chasing the Sun",
+        "title": "夸父逐日2.0",
+        "titleEn": "Chasing the Sun 2.0",
         "category": "AIGC影像",
         "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+mythological+scene+giant+chasing+the+sun+dramatic+skies+epic+lighting+motion+blur+film+quality&image_size=landscape_16_9",
         "duration": "02:45",
-        "description": "以AI技术重述夸父逐日神话",
+        "description": "以AI技术重述夸父逐日神话，传统与现代的碰撞",
         "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/aigc/古诗词夸父逐日.mp4"
       },
       {
@@ -34,11 +34,11 @@
       {
         "id": "aigc-004",
         "title": "AI复活天文学家",
-        "titleEn": "AI Resurrects Astronomer",
+        "titleEn": "AI Revives Astronomer",
         "category": "AIGC影像",
-        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+AI+digital+resurrection+historical+figure+astronomer+stars+telescope+dramatic+lighting+film+quality&image_size=landscape_16_9",
-        "duration": "04:00",
-        "description": "AI技术让历史人物重现，致敬天文学家",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+astronomer+portrait+starry+sky+telescope+AI+technology+blend+of+past+and+future+dramatic+lighting+film+quality&image_size=landscape_16_9",
+        "duration": "03:30",
+        "description": "用AI技术复活历史人物，探索科技与人文的交汇",
         "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/aigc/AI复活天文学家.mp4"
       },
       {
@@ -46,7 +46,7 @@
         "title": "2025中国航天日",
         "titleEn": "China Space Day 2025",
         "category": "AIGC影像",
-        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+space+exploration+rocket+launch+stars+cosmos+dramatic+lighting+patriotic+mood+film+quality&image_size=landscape_16_9",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Space+exploration+rocket+launch+stars+cosmos+dramatic+lighting+patriotic+mood+film+quality&image_size=landscape_16_9",
         "duration": "01:30",
         "description": "零基础用AI做动画，致敬中国航天事业",
         "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/aigc/2025中国航天日.mp4"
@@ -61,7 +61,7 @@
         "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Documentary+film+still+Chinese+women+empowerment+natural+light+intimate+portrait+warm+tones+professional+cinematography&image_size=landscape_16_9",
         "duration": "10:00",
         "description": "纪录女性力量与社会角色的变迁",
-        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/documentary/%E7%BA%AA%E5%BD%95%E7%89%87%20%E3%80%8A%E5%8D%8A%E8%BE%B9%E5%A4%A9%E3%80%8B.mp4"
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/documentary/纪录片《半边天》.mp4"
       },
       {
         "id": "doc-002",
@@ -83,17 +83,7 @@
         "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Documentary+film+still+memorial+hero+portrait+dramatic+lighting+solemn+atmosphere+historical+photography+film+quality&image_size=landscape_16_9",
         "duration": "04:00",
         "description": "专题纪录片，纪念革命烈士周礼平的英勇事迹",
-        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/special/周礼平烈士.mp4"
-      },
-      {
-        "id": "special-002",
-        "title": "潮州韩韵",
-        "titleEn": "Chaozhou Han Rhythm",
-        "category": "专题片",
-        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Chaozhou+culture+traditional+architecture+ancient+streets+teahouse+warm+sunlight+cinematic+depth+film+quality&image_size=landscape_16_9",
-        "duration": "04:00",
-        "description": "潮州人文风情短片，展现古城韵味",
-        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/special/潮州韩韵.mp4"
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/special/周礼平烈士_副本.mp4"
       }
     ],
     "commercial": [
@@ -214,8 +204,8 @@
   "mediaWorks": [
     {
       "id": "media-001",
-      "title": "抖肩舞",
-      "titleEn": "Shoulder Dance",
+      "title": "汕头大学抖肩舞",
+      "titleEn": "Shantou University Shoulder Dance",
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Campus+life+dance+performance+students+dancing+energetic+atmosphere+university+fun+moment+professional+video+quality&image_size=landscape_16_9",
       "description": "汕头大学校园抖肩舞创意视频",
@@ -223,8 +213,8 @@
     },
     {
       "id": "media-002",
-      "title": "汕大街拍",
-      "titleEn": "STU Street Shoot",
+      "title": "我的第一个街拍视频——汕头大学",
+      "titleEn": "My First Street Shoot - STU",
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=University+campus+wandering+student+filming+with+camera+natural+light+young+filmmaker+documentary+style&image_size=landscape_16_9",
       "description": "初试街拍，记录汕头大学校园日常",
@@ -232,7 +222,15 @@
     },
     {
       "id": "media-003",
-      "title": "南澳旅行",
+      "title": "潮州韩韵",
+      "titleEn": "Chaozhou Han Rhythm",
+      "category": "自媒体作品",
+      "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Chaozhou+culture+traditional+architecture+ancient+streets+teahouse+warm+sunlight+cinematic+depth+film+quality&image_size=landscape_16_9",
+      "description": "潮州人文风情短片，展现古城韵味"
+    },
+    {
+      "id": "media-004",
+      "title": "汕头南澳旅行vlog",
       "titleEn": "Nan'ao Island Travel Vlog",
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Tropical+island+beach+sunset+ocean+waves+travel+adventure+vibrant+warm+light+vlog+style+cinematic+4K&image_size=landscape_16_9",
@@ -240,7 +238,7 @@
       "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/《南澳旅行》.mp4"
     },
     {
-      "id": "media-004",
+      "id": "media-005",
       "title": "独居在家",
       "titleEn": "Home Alone",
       "category": "自媒体作品",
@@ -249,39 +247,39 @@
       "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/《独居在家》.mp4"
     },
     {
-      "id": "media-005",
-      "title": "民大初雪",
-      "titleEn": "First Snow at MUC",
+      "id": "media-006",
+      "title": "那天我们在民大看的第一场雪",
+      "titleEn": "Our First Snow at MUC",
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=University+campus+first+snow+winter+students+walking+in+snow+warm+colors+cold+atmosphere+cinematic+documentary+style&image_size=landscape_16_9",
-      "description": "中央民族大学的第一场雪",
+      "description": "中央民族大学的第一场雪，校园冬日记忆",
       "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/《民大初雪》.mp4"
     },
     {
-      "id": "media-006",
-      "title": "我用潮汕话做报道",
-      "titleEn": "Chaoshan Dialect Report",
+      "id": "media-007",
+      "title": "我用潮汕话做了一场运动会报道",
+      "titleEn": "Chaoshan Dialect Sports Report",
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=University+sports+meet+students+competing+track+field+bright+sunlight+energetic+atmosphere+documentary+video+style&image_size=landscape_16_9",
-      "description": "用潮汕方言报道运动会，地方文化的创意表达",
+      "description": "用潮汕方言报道汕头大学运动会，地方文化的创意表达",
       "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/《我用潮汕话做报道》.mp4"
     },
     {
-      "id": "media-007",
-      "title": "五一诉苦歌",
-      "titleEn": "Labor Day Blues",
+      "id": "media-008",
+      "title": "五一加班之歌",
+      "titleEn": "Labor Day Overtime Song",
       "category": "自媒体作品",
       "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Office+worker+sitting+at+desk+near+window+pensive+mood+creative+expression+musical+atmosphere+film+quality&image_size=landscape_16_9",
       "description": "五一加班时突然迸发的音乐创作灵感",
       "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/《五一诉苦歌》.mp4"
     },
     {
-      "id": "media-008",
+      "id": "media-009",
       "title": "墙",
       "titleEn": "The Wall",
       "category": "自媒体作品",
-      "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+wall+divided+space+light+and+shadow+dramatic+composition+film+still+atmospheric+mood+professional+quality&image_size=landscape_16_9",
-      "description": "创意短片，关于边界与连接",
+      "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Social+media+content+creation+smartphone+filming+creative+setup+vibrant+colors+modern+aesthetic+professional+quality&image_size=landscape_16_9",
+      "description": "社交媒体平台综合内容创作集锦",
       "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/《墙》.mp4"
     }
   ]
