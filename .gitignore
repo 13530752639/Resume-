@@ -13,4 +13,8 @@ yarn-error.log*
 *.swp
 *.swo
 *~
+.wrangler/
+.env.r2
+r2-local-test/
+public/videos 2/
 .vercel
