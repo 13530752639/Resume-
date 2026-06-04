@@ -1,13 +1,13 @@
 import { create } from 'zustand'
 import worksData from '../data/works.json'
 
-type NavigationLevel = 'home' | 'about' | 'video-works' | 'photo-works' | 'media-works' | 'work-detail'
+type NavigationLevel = 'home' | 'about' | 'video-works' | 'photo-works' | 'media-works' | 'academic-works' | 'work-detail'
 
 interface WorkCategory {
   id: string
   title: string
   subtitle?: string
-  type: 'video' | 'photo' | 'media'
+  type: 'video' | 'photo' | 'media' | 'academic'
 }
 
 interface AppState {

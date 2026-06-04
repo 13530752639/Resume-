@@ -4,6 +4,7 @@ import HomeSection from './components/sections/HomeSection'
 import AboutSection from './components/sections/AboutSection'
 import WorksCategorySection from './components/sections/WorksCategorySection'
 import WorkDetailSection from './components/sections/WorkDetailSection'
+import AcademicSection from './components/sections/AcademicSection'
 
 const pageVariants = {
   initial: {
@@ -38,6 +39,8 @@ export default function App() {
       case 'photo-works':
       case 'media-works':
         return <WorksCategorySection />
+      case 'academic-works':
+        return <AcademicSection />
       case 'work-detail':
         return <WorkDetailSection />
       default:
