@@ -7,7 +7,6 @@ import {
   VolumeX,
   Maximize,
   Minimize,
-  Settings,
   Loader2
 } from 'lucide-react'
 
@@ -29,8 +28,6 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [showControls, setShowControls] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
-  const [playbackSpeed, setPlaybackSpeed] = useState(1)
-  const [showSettings, setShowSettings] = useState(false)
 
   let hideControlsTimeout: NodeJS.Timeout
 
@@ -38,10 +35,15 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
     const video = videoRef.current
     if (!video) return
 
+    // 确保以原始帧率播放
+    video.playbackRate = 1
+    video.defaultPlaybackRate = 1
+
     const handleTimeUpdate = () => setCurrentTime(video.currentTime)
     const handleLoadedMetadata = () => {
       setDuration(video.duration)
       setIsLoading(false)
+      video.playbackRate = 1
     }
     const handleWaiting = () => setIsLoading(true)
     const handlePlaying = () => setIsLoading(false)
@@ -155,15 +157,6 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
     return `${minutes}:${seconds.toString().padStart(2, '0')}`
   }
 
-  const changePlaybackSpeed = (speed: number) => {
-    const video = videoRef.current
-    if (!video) return
-    
-    video.playbackRate = speed
-    setPlaybackSpeed(speed)
-    setShowSettings(false)
-  }
-
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0
 
   return (
@@ -201,40 +194,9 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
         transition={{ duration: 0.3 }}
         className={`absolute inset-0 flex flex-col justify-end p-6 ${!showControls ? 'pointer-events-none' : ''}`}
       >
-        {/* Top Bar - Title & Speed */}
-        <div className="flex items-center justify-between mb-auto mt-4">
+        {/* Top Bar - Title */}
+        <div className="flex items-center mb-auto mt-4">
           <h4 className="text-lg font-semibold text-white drop-shadow-lg">{title}</h4>
-          
-          {/* Speed Control */}
-          <div className="relative">
-            <button
-              onClick={() => setShowSettings(!showSettings)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-colors"
-            >
-              <Settings className="w-4 h-4" />
-              {playbackSpeed}x
-            </button>
-
-            {showSettings && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="absolute right-0 top-full mt-2 bg-cinema-dark rounded-lg shadow-xl border border-white/10 overflow-hidden min-w-[120px]"
-              >
-                {[0.5, 1, 1.25, 1.5, 2].map((speed) => (
-                  <button
-                    key={speed}
-                    onClick={() => changePlaybackSpeed(speed)}
-                    className={`w-full px-4 py-2.5 text-left text-sm hover:bg-white/5 transition-colors ${
-                      playbackSpeed === speed ? 'text-white font-semibold bg-white/5' : 'text-cinema-muted'
-                    }`}
-                  >
-                    {speed}x
-                  </button>
-                ))}
-              </motion.div>
-            )}
-          </div>
         </div>
 
         {/* Center Play Button (when paused) */}

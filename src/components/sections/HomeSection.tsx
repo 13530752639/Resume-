@@ -11,8 +11,11 @@ export default function HomeSection() {
   return (
     <section className="relative h-screen w-full overflow-hidden bg-black">
       <div className="absolute inset-0">
-        <img
-          src="/covers/web/Webp/home-bg.jpg"
+        <motion.img
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, ease: 'easeInOut' }}
+          src="/covers/web/Webp/封面.jpg"
           alt="Background"
           className="w-full h-full object-cover"
         />

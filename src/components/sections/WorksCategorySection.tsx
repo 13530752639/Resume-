@@ -102,11 +102,16 @@ export default function WorksCategorySection() {
     }
   }
 
+  const handleFullscreenBack = () => {
+    setSelectedSubCategory(null)
+    setActiveWorkIndex(0)
+  }
+
   // Wheel handler for content view scroll switching
   const handleWheel = useCallback((e: WheelEvent) => {
     let works: any[] = []
     if (isMediaPage) {
-      works = categoriesData.mediaWorks.filter(w => w.videoUrl)
+      works = categoriesData.mediaWorks
     } else if (selectedSubCategory) {
       works = getWorksForCategory(selectedSubCategory)
     } else {
@@ -132,126 +137,141 @@ export default function WorksCategorySection() {
   }, [handleWheel, selectedSubCategory, isMediaPage])
 
   const currentWorks = selectedSubCategory ? getWorksForCategory(selectedSubCategory) : []
-  const currentWork = currentWorks[activeWorkIndex]
   const navLinks = getNavLinks()
   const titleInfo = getTitle()
+
+  const isFullscreen = (isMediaPage && !selectedSubCategory) || (!!selectedSubCategory)
 
   return (
     <section ref={contentRef} className="relative min-h-screen overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0">
-        <img src={getBgImage()} alt="Background" className="w-full h-full object-cover" />
-        <div className={`absolute inset-0 ${getBgOverlay()}`} />
-      </div>
+      {!isFullscreen && (
+        <div className="absolute inset-0">
+          <img src={getBgImage()} alt="Background" className="w-full h-full object-cover" />
+          <div className={`absolute inset-0 ${getBgOverlay()}`} />
+        </div>
+      )}
 
       <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Navigation bar */}
-        <div className="flex items-center justify-between px-6 md:px-12 lg:px-16 py-6">
-          <button
-            onClick={handleBack}
-            className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            {selectedSubCategory ? '返回分类' : '返回首页'}
-          </button>
 
-          <nav className="flex items-center gap-3 md:gap-5 text-sm flex-wrap justify-end">
-            {navLinks.map((link, i) => (
-              <span key={link.label} className="flex items-center gap-3 md:gap-5">
-                {i > 0 && <span className="text-white/20">|</span>}
-                <button
-                  onClick={link.action}
-                  className={`transition-colors ${
-                    link.highlight
-                      ? 'text-white bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full'
-                      : 'text-white/70 hover:text-white'
-                  }`}
-                >
-                  {link.label}
-                </button>
-              </span>
-            ))}
-          </nav>
-        </div>
-
-        <div className="flex-1 flex items-center">
-          <AnimatePresence mode="wait">
-            {!selectedSubCategory ? (
-              /* ── 分类选择视图 ── */
-              <motion.div
-                key="categories"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="w-full px-6 md:px-12 lg:px-16"
-              >
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-white mb-12 tracking-wide max-w-3xl">
-                  {titleInfo.main}
-                  {titleInfo.hasStar && <span className="text-red-600 ml-3">*</span>}
-                </h1>
-
-                {isMediaPage ? (
-                  /* 自媒体作品: 直接播放视频列表 */
-                  <MediaDirectView
-                    works={categoriesData.mediaWorks}
-                    activeIndex={activeWorkIndex}
-                    onIndexChange={setActiveWorkIndex}
-                  />
-                ) : (
-                  /* 影像/摄影: 分类列表 */
-                  <ul className="space-y-5 max-w-xl">
-                    {getCategories().map((category, index) => (
-                      <motion.li
-                        key={category.id}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                      >
-                        <button
-                          onClick={() => handleCategoryClick(category.id)}
-                          className="group flex items-baseline gap-3 text-left hover:text-red-400 transition-colors text-white"
-                        >
-                          <span className="text-white/40 group-hover:text-red-400 transition-colors">•</span>
-                          <span className="text-xl md:text-2xl font-normal">{category.title}</span>
-                          {category.enTitle && (
-                            <span className="text-base md:text-lg text-white/40 font-light italic">
-                              {category.enTitle}
-                            </span>
-                          )}
-                        </button>
-                      </motion.li>
-                    ))}
-                  </ul>
-                )}
-              </motion.div>
+        {/* Fullscreen content player overlay */}
+        <AnimatePresence>
+          {isFullscreen && (
+            isMediaPage ? (
+              <MediaFullscreenPlayer
+                key="media-fullscreen"
+                works={categoriesData.mediaWorks}
+                activeIndex={activeWorkIndex}
+                onIndexChange={setActiveWorkIndex}
+                onBack={handleFullscreenBack}
+                navLinks={navLinks}
+              />
             ) : (
-              /* ── 内容播放视图 ── */
-              <ContentPlayer
+              <FullscreenPlayer
+                key="content-fullscreen"
                 works={currentWorks}
                 activeIndex={activeWorkIndex}
                 onIndexChange={setActiveWorkIndex}
-                isVideo={isVideoPage || isMediaPage}
+                onBack={handleFullscreenBack}
+                navLinks={navLinks}
+                isVideo={isVideoPage}
               />
-            )}
-          </AnimatePresence>
-        </div>
+            )
+          )}
+        </AnimatePresence>
+
+        {/* Navigation bar (hidden when fullscreen) */}
+        {!isFullscreen && (
+          <div className="flex items-center justify-between px-6 md:px-12 lg:px-16 py-6">
+            <button
+              onClick={handleBack}
+              className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              返回首页
+            </button>
+
+            <nav className="flex items-center gap-3 md:gap-5 text-sm flex-wrap justify-end">
+              {navLinks.map((link, i) => (
+                <span key={link.label} className="flex items-center gap-3 md:gap-5">
+                  {i > 0 && <span className="text-white/20">|</span>}
+                  <button
+                    onClick={link.action}
+                    className={`transition-colors ${
+                      link.highlight
+                        ? 'text-white bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full'
+                        : 'text-white/70 hover:text-white'
+                    }`}
+                  >
+                    {link.label}
+                  </button>
+                </span>
+              ))}
+            </nav>
+          </div>
+        )}
+
+        {/* Category selection view (hidden when fullscreen) */}
+        {!isFullscreen && (
+          <div className="flex-1 flex items-center">
+            <motion.div
+              key="categories"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-full px-6 md:px-12 lg:px-16"
+            >
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-white mb-12 tracking-wide max-w-3xl">
+                {titleInfo.main}
+                {titleInfo.hasStar && <span className="text-red-600 ml-3">*</span>}
+              </h1>
+
+              <ul className="space-y-5 max-w-xl">
+                {getCategories().map((category, index) => (
+                  <motion.li
+                    key={category.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                  >
+                    <button
+                      onClick={() => handleCategoryClick(category.id)}
+                      className="group flex items-baseline gap-3 text-left hover:text-red-400 transition-colors text-white"
+                    >
+                      <span className="text-white/40 group-hover:text-red-400 transition-colors">•</span>
+                      <span className="text-xl md:text-2xl font-normal">{category.title}</span>
+                      {category.enTitle && (
+                        <span className="text-base md:text-lg text-white/40 font-light italic">
+                          {category.enTitle}
+                        </span>
+                      )}
+                    </button>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+        )}
       </div>
     </section>
   )
 }
 
-/* ─── 内容播放器子组件 ─── */
+/* ─── 全屏播放器（影像/摄影作品子分类） ─── */
 
-function ContentPlayer({
+function FullscreenPlayer({
   works,
   activeIndex,
   onIndexChange,
+  onBack,
+  navLinks,
   isVideo,
 }: {
   works: any[]
   activeIndex: number
   onIndexChange: (i: number) => void
+  onBack: () => void
+  navLinks: { label: string; action: () => void; highlight?: boolean }[]
   isVideo: boolean
 }) {
   const work = works[activeIndex]
@@ -259,91 +279,128 @@ function ContentPlayer({
 
   return (
     <motion.div
-      key="content-player"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="w-full flex flex-col items-center justify-center px-6 md:px-12 lg:px-16 py-8"
+      transition={{ duration: 0.7, ease: 'easeInOut' }}
+      className="fixed inset-0 z-50 bg-black"
     >
+      {/* 背景媒体层 */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeIndex}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.45 }}
-          className="w-full max-w-5xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6 }}
+          className="absolute inset-0"
         >
-          {/* 媒体内容 */}
-          <div className="rounded-lg overflow-hidden shadow-2xl bg-black/80">
-            {isVideo && work.videoUrl ? (
-              <video
-                key={work.id}
-                src={work.videoUrl}
-                autoPlay
-                muted
-                loop
-                playsInline
-                controls
-                className="w-full max-h-[65vh] object-contain"
-              />
-            ) : (
-              <img
-                src={work.thumbnail}
-                alt={work.title}
-                className="w-full max-h-[65vh] object-contain"
-              />
-            )}
-          </div>
-
-          {/* 作品信息 */}
-          <div className="mt-6 text-center">
-            <h2 className="text-2xl md:text-3xl font-light text-white tracking-wide">
-              {work.title}
-            </h2>
-            {work.titleEn && (
-              <p className="text-lg text-red-400 italic mt-1">{work.titleEn}</p>
-            )}
-            {work.description && (
-              <p className="text-white/60 mt-3 max-w-xl mx-auto text-sm md:text-base">
-                {work.description}
-              </p>
-            )}
-            {work.duration && (
-              <span className="inline-block mt-3 px-3 py-1 rounded-full bg-white/10 text-white/70 text-xs">
-                {work.duration}
-              </span>
-            )}
-          </div>
-
-          {/* 分页指示器 */}
-          {works.length > 1 && (
-            <div className="mt-6 flex items-center justify-center gap-4">
-              <div className="flex gap-2">
-                {works.map((w: any, i: number) => (
-                  <button
-                    key={w.id}
-                    onClick={() => onIndexChange(i)}
-                    className={`h-0.5 rounded-full transition-all duration-500 ${
-                      i === activeIndex
-                        ? 'w-10 bg-red-600'
-                        : 'w-4 bg-white/20 hover:bg-white/40'
-                    }`}
-                  />
-                ))}
-              </div>
-              <span className="text-white/40 text-sm">
-                {activeIndex + 1} / {works.length}
-              </span>
-            </div>
+          {isVideo && work.videoUrl ? (
+            <video
+              src={work.videoUrl}
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <img
+              src={work.thumbnail}
+              alt={work.title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
           )}
         </motion.div>
       </AnimatePresence>
 
+      {/* 暗色渐变叠加层（确保文字可读） */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/40 pointer-events-none" />
+
+      {/* 顶部导航栏 */}
+      <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 md:px-12 lg:px-16 py-6">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          返回分类
+        </button>
+
+        <nav className="flex items-center gap-3 md:gap-5 text-sm flex-wrap justify-end">
+          {navLinks.map((link, i) => (
+            <span key={link.label} className="flex items-center gap-3 md:gap-5">
+              {i > 0 && <span className="text-white/20">|</span>}
+              <button
+                onClick={link.action}
+                className={`transition-colors ${
+                  link.highlight
+                    ? 'text-white bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full'
+                    : 'text-white/70 hover:text-white'
+                }`}
+              >
+                {link.label}
+              </button>
+            </span>
+          ))}
+        </nav>
+      </div>
+
+      {/* 居中文字叠加层 */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 pointer-events-none">
+        <motion.div
+          key={`text-${activeIndex}`}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-center"
+        >
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-white tracking-wide drop-shadow-lg">
+            {work.title}
+          </h2>
+          {work.titleEn && (
+            <p className="text-xl md:text-2xl text-red-400 italic mt-2 drop-shadow-lg">
+              {work.titleEn}
+            </p>
+          )}
+          {work.description && (
+            <p className="text-white/80 mt-4 max-w-xl mx-auto text-sm md:text-base drop-shadow-md">
+              {work.description}
+            </p>
+          )}
+          {work.duration && (
+            <span className="inline-block mt-4 px-3 py-1 rounded-full bg-white/10 text-white/70 text-xs backdrop-blur-sm">
+              {work.duration}
+            </span>
+          )}
+        </motion.div>
+      </div>
+
+      {/* 底部分页指示器 */}
+      {works.length > 1 && (
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4">
+          <div className="flex gap-2">
+            {works.map((w: any, i: number) => (
+              <button
+                key={w.id}
+                onClick={() => onIndexChange(i)}
+                className={`h-0.5 rounded-full transition-all duration-500 ${
+                  i === activeIndex
+                    ? 'w-10 bg-red-600'
+                    : 'w-4 bg-white/20 hover:bg-white/40'
+                }`}
+              />
+            ))}
+          </div>
+          <span className="text-white/40 text-sm">
+            {activeIndex + 1} / {works.length}
+          </span>
+        </div>
+      )}
+
       {/* 滚动提示 */}
       {works.length > 1 && (
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/30 text-sm flex items-center gap-2 animate-bounce">
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 text-white/30 text-sm flex items-center gap-2 animate-bounce pointer-events-none">
           <span>滚动切换</span>
           <span>↓</span>
         </div>
@@ -352,95 +409,147 @@ function ContentPlayer({
   )
 }
 
-/* ─── 自媒体作品直接播放 ─── */
+/* ─── 自媒体作品全屏播放器 ─── */
 
-function MediaDirectView({
+function MediaFullscreenPlayer({
   works,
   activeIndex,
   onIndexChange,
+  onBack,
+  navLinks,
 }: {
   works: any[]
   activeIndex: number
   onIndexChange: (i: number) => void
+  onBack: () => void
+  navLinks: { label: string; action: () => void; highlight?: boolean }[]
 }) {
   const work = works[activeIndex]
   if (!work) return null
 
   return (
-    <div className="w-full">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7, ease: 'easeInOut' }}
+      className="fixed inset-0 z-50 bg-black"
+    >
+      {/* 背景媒体层 */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeIndex}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.45 }}
-          className="w-full max-w-5xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6 }}
+          className="absolute inset-0"
         >
-          <div className="rounded-lg overflow-hidden shadow-2xl bg-black/80">
-            {work.videoUrl ? (
-              <video
-                key={work.id}
-                src={work.videoUrl}
-                autoPlay
-                muted
-                loop
-                playsInline
-                controls
-                className="w-full max-h-[65vh] object-contain"
-              />
-            ) : (
-              <img
-                src={work.thumbnail}
-                alt={work.title}
-                className="w-full max-h-[65vh] object-contain"
-              />
-            )}
-          </div>
-
-          <div className="mt-6 text-center">
-            <h2 className="text-2xl md:text-3xl font-light text-white tracking-wide">
-              {work.title}
-            </h2>
-            {work.titleEn && (
-              <p className="text-lg text-red-400 italic mt-1">{work.titleEn}</p>
-            )}
-            {work.description && (
-              <p className="text-white/60 mt-3 max-w-xl mx-auto text-sm md:text-base">
-                {work.description}
-              </p>
-            )}
-          </div>
-
-          {works.length > 1 && (
-            <div className="mt-6 flex items-center justify-center gap-4">
-              <div className="flex gap-2">
-                {works.map((w: any, i: number) => (
-                  <button
-                    key={w.id}
-                    onClick={() => onIndexChange(i)}
-                    className={`h-0.5 rounded-full transition-all duration-500 ${
-                      i === activeIndex
-                        ? 'w-10 bg-red-600'
-                        : 'w-4 bg-white/20 hover:bg-white/40'
-                    }`}
-                  />
-                ))}
-              </div>
-              <span className="text-white/40 text-sm">
-                {activeIndex + 1} / {works.length}
-              </span>
-            </div>
+          {work.videoUrl ? (
+            <video
+              src={work.videoUrl}
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <img
+              src={work.thumbnail}
+              alt={work.title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
           )}
         </motion.div>
       </AnimatePresence>
 
+      {/* 暗色渐变叠加层 */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/40 pointer-events-none" />
+
+      {/* 顶部导航栏 */}
+      <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 md:px-12 lg:px-16 py-6">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          返回首页
+        </button>
+
+        <nav className="flex items-center gap-3 md:gap-5 text-sm flex-wrap justify-end">
+          {navLinks.map((link, i) => (
+            <span key={link.label} className="flex items-center gap-3 md:gap-5">
+              {i > 0 && <span className="text-white/20">|</span>}
+              <button
+                onClick={link.action}
+                className={`transition-colors ${
+                  link.highlight
+                    ? 'text-white bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full'
+                    : 'text-white/70 hover:text-white'
+                }`}
+              >
+                {link.label}
+              </button>
+            </span>
+          ))}
+        </nav>
+      </div>
+
+      {/* 居中文字叠加层 */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 pointer-events-none">
+        <motion.div
+          key={`text-${activeIndex}`}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-center"
+        >
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-white tracking-wide drop-shadow-lg">
+            {work.title}
+          </h2>
+          {work.titleEn && (
+            <p className="text-xl md:text-2xl text-red-400 italic mt-2 drop-shadow-lg">
+              {work.titleEn}
+            </p>
+          )}
+          {work.description && (
+            <p className="text-white/80 mt-4 max-w-xl mx-auto text-sm md:text-base drop-shadow-md">
+              {work.description}
+            </p>
+          )}
+        </motion.div>
+      </div>
+
+      {/* 底部分页指示器 */}
       {works.length > 1 && (
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/30 text-sm flex items-center gap-2 animate-bounce">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4">
+          <div className="flex gap-2">
+            {works.map((w: any, i: number) => (
+              <button
+                key={w.id}
+                onClick={() => onIndexChange(i)}
+                className={`h-0.5 rounded-full transition-all duration-500 ${
+                  i === activeIndex
+                    ? 'w-10 bg-red-600'
+                    : 'w-4 bg-white/20 hover:bg-white/40'
+                }`}
+              />
+            ))}
+          </div>
+          <span className="text-white/40 text-sm">
+            {activeIndex + 1} / {works.length}
+          </span>
+        </div>
+      )}
+
+      {/* 滚动提示 */}
+      {works.length > 1 && (
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 text-white/30 text-sm flex items-center gap-2 animate-bounce pointer-events-none">
           <span>滚动切换</span>
           <span>↓</span>
         </div>
       )}
-    </div>
+    </motion.div>
   )
 }
