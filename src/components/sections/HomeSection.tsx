@@ -12,11 +12,11 @@ export default function HomeSection() {
     <section className="relative h-screen w-full overflow-hidden bg-black">
       <div className="absolute inset-0">
         <img
-          src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+film+scene+warm+lighting+through+window+soft+natural+light+interior+setting+film+aesthetic+moody+atmosphere+professional+photography&image_size=landscape_16_9"
+          src="/covers/web/Webp/home-bg.jpg"
           alt="Background"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
       <div className="relative z-10 h-screen flex flex-col justify-between p-8 md:p-12 lg:p-16">

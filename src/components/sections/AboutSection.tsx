@@ -1,14 +1,23 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Search, Edit3, Check, X } from 'lucide-react'
+import { Search, Edit3, Check, X, ChevronUp, ChevronDown } from 'lucide-react'
 import { worksData } from '../../store/useAppStore'
 import useAppStore from '../../store/useAppStore'
+
+const introCards = [
+  { id: 'intro', label: '自我介绍', src: '/covers/web/自我介绍.png' },
+  { id: 'internship', label: '实习经历', src: '/covers/web/实习经历.png' },
+  { id: 'works', label: '代表作品', src: '/covers/web/代表作品.png' },
+  { id: 'honor', label: '代表荣誉', src: '/covers/web/代表荣誉.png' },
+]
 
 export default function AboutSection() {
   const profile = worksData.profile
   const { navigateTo } = useAppStore()
   const [isEditing, setIsEditing] = useState(false)
   const [editableBio, setEditableBio] = useState(profile.bio)
+  const [activeCard, setActiveCard] = useState('intro')
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   const handleSaveBio = () => {
     setIsEditing(false)
@@ -17,6 +26,16 @@ export default function AboutSection() {
   const handleCancelEdit = () => {
     setEditableBio(profile.bio)
     setIsEditing(false)
+  }
+
+  const scrollToCard = (direction: 'up' | 'down') => {
+    const currentIndex = introCards.findIndex(c => c.id === activeCard)
+    const nextIndex = direction === 'up'
+      ? Math.max(0, currentIndex - 1)
+      : Math.min(introCards.length - 1, currentIndex + 1)
+    if (nextIndex !== currentIndex) {
+      setActiveCard(introCards[nextIndex].id)
+    }
   }
 
   return (
@@ -67,28 +86,91 @@ export default function AboutSection() {
         </motion.h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+          {/* 左侧: 可滑动自我介绍板块 */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="aspect-video bg-black rounded-lg overflow-hidden"
+            className="relative flex flex-col"
           >
-            <img
-              src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Professional+film+director+working+on+set+cinematic+lighting+camera+equipment+behind+the+scenes+dark+atmosphere+professional+production&image_size=landscape_16_9"
-              alt="Director at work"
-              className="w-full h-full object-cover opacity-80"
-            />
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex gap-2">
+                {introCards.map(card => (
+                  <button
+                    key={card.id}
+                    onClick={() => setActiveCard(card.id)}
+                    className={`px-4 py-2 rounded-full text-sm transition-all ${
+                      activeCard === card.id
+                        ? 'bg-black text-white shadow-md'
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                  >
+                    {card.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex gap-1">
+                <button
+                  onClick={() => scrollToCard('up')}
+                  disabled={activeCard === introCards[0].id}
+                  className="p-1.5 rounded hover:bg-gray-100 disabled:opacity-30 transition-colors"
+                >
+                  <ChevronUp className="w-5 h-5 text-gray-600" />
+                </button>
+                <button
+                  onClick={() => scrollToCard('down')}
+                  disabled={activeCard === introCards[introCards.length - 1].id}
+                  className="p-1.5 rounded hover:bg-gray-100 disabled:opacity-30 transition-colors"
+                >
+                  <ChevronDown className="w-5 h-5 text-gray-600" />
+                </button>
+              </div>
+            </div>
+
+            <div className="relative flex-1 min-h-[400px] md:min-h-[500px]">
+              {introCards.map(card => (
+                <motion.div
+                  key={card.id}
+                  initial={false}
+                  animate={{
+                    opacity: activeCard === card.id ? 1 : 0,
+                    scale: activeCard === card.id ? 1 : 0.98,
+                    pointerEvents: activeCard === card.id ? 'auto' : 'none',
+                  }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                  className={`absolute inset-0 rounded-xl overflow-hidden shadow-2xl ${
+                    activeCard === card.id ? 'z-10' : 'z-0'
+                  }`}
+                  style={{
+                    boxShadow: activeCard === card.id
+                      ? '0 20px 60px -15px rgba(0,0,0,0.3), 0 4px 12px -4px rgba(0,0,0,0.15)'
+                      : 'none',
+                  }}
+                >
+                  <div className="w-full h-full bg-white rounded-xl overflow-hidden" ref={activeCard === card.id ? scrollRef : undefined}>
+                    <img
+                      src={card.src}
+                      alt={card.label}
+                      className="w-full h-full object-contain"
+                      draggable={false}
+                    />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
 
+          {/* 右侧: 个人肖像 */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="space-y-6"
           >
-            <div className="aspect-[3/4] max-w-sm mx-auto lg:mx-0 bg-gray-100 rounded-lg overflow-hidden">
+            <div className="aspect-[3/4] max-w-sm mx-auto lg:mx-0 bg-gray-100 rounded-lg overflow-hidden shadow-xl">
               <img
-                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Professional+portrait+photo+of+Chinese+film+director+confident+smile+studio+lighting+clean+background+professional+headshot+high+quality&image_size=portrait_4_3"
+                src="/covers/web/portrait-compressed.jpg"
                 alt={profile.name}
                 className="w-full h-full object-cover"
               />
@@ -114,7 +196,7 @@ export default function AboutSection() {
               </button>
             )}
           </div>
-          
+
           {isEditing ? (
             <motion.div
               initial={{ opacity: 0, y: -10 }}

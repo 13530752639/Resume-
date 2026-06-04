@@ -81,15 +81,37 @@ export default function WorksCategorySection() {
   const categories = getCategories()
   const currentWorks = selectedSubCategory ? getWorksForCategory(selectedSubCategory) : []
 
+  const getBgImage = () => {
+    switch (currentLevel) {
+      case 'video-works':
+        return '/covers/web/Webp/video-bg.jpg'
+      case 'photo-works':
+        return '/covers/web/Webp/photo-bg.jpg'
+      default:
+        return '/covers/web/Webp/video-bg.jpg'
+    }
+  }
+
+  const getBgOverlay = () => {
+    switch (currentLevel) {
+      case 'video-works':
+        return 'bg-black/30'
+      case 'photo-works':
+        return 'bg-blue-900/20'
+      default:
+        return 'bg-white/40 backdrop-blur-sm'
+    }
+  }
+
   return (
     <section className="relative min-h-screen overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Soft+warm+interior+scene+with+natural+light+through+curtains+cozy+atmosphere+minimalist+design+faded+colors+vintage+aesthetic&image_size=landscape_16_9"
+          src={getBgImage()}
           alt="Background"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-white/40 backdrop-blur-sm" />
+        <div className={`absolute inset-0 ${getBgOverlay()}`} />
       </div>
 
       <div className="relative z-10 min-h-screen flex flex-col px-8 md:px-16 lg:px-24 py-12">
