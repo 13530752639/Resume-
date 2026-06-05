@@ -31,48 +31,20 @@ export default function StreetPhotoModule({ onBack }: StreetPhotoModuleProps) {
     }
   }
 
-  const levelLabels: Record<Level, string> = {
-    0: '返回首页',
-    1: '返回分类',
-    2: '返回预览',
-    3: '返回介绍',
-  }
-
   return (
     <section className="fixed inset-0 z-50 bg-black overflow-hidden">
       <AnimatePresence mode="wait">
         {level === 0 && (
-          <TopicSelector
-            key="topic-selector"
-            onSelect={handleSelectTopic}
-            onBack={onBack}
-          />
+          <TopicSelector key="topic-selector" onSelect={handleSelectTopic} onBack={onBack} />
         )}
         {level === 1 && selectedTopic && (
-          <CoverView
-            key={`cover-${selectedTopic.id}`}
-            topic={selectedTopic}
-            onClick={handleAdvance}
-            onBack={handleBack}
-            backLabel={levelLabels[0]}
-          />
+          <CoverView key={`cover-${selectedTopic.id}`} topic={selectedTopic} onClick={handleAdvance} onBack={handleBack} />
         )}
         {level === 2 && selectedTopic && (
-          <IntroView
-            key={`intro-${selectedTopic.id}`}
-            topic={selectedTopic}
-            onClick={handleAdvance}
-            onBack={handleBack}
-            backLabel={levelLabels[1]}
-          />
+          <IntroView key={`intro-${selectedTopic.id}`} topic={selectedTopic} onClick={handleAdvance} onBack={handleBack} />
         )}
         {level === 3 && selectedTopic && (
-          <GalleryView
-            key={`gallery-${selectedTopic.id}`}
-            topic={selectedTopic}
-            onBack={handleBack}
-            backLabel={levelLabels[2]}
-          />
+          <GalleryView key={`gallery-${selectedTopic.id}`} topic={selectedTopic} onBack={handleBack} />
         )}
       </AnimatePresence>
     </section>
@@ -81,39 +53,19 @@ export default function StreetPhotoModule({ onBack }: StreetPhotoModuleProps) {
 
 /* ─── Level 0: 主题选择 ─── */
 
-function TopicSelector({
-  onSelect,
-  onBack,
-}: {
-  onSelect: (t: StreetTopic) => void
-  onBack: () => void
-}) {
+function TopicSelector({ onSelect, onBack }: { onSelect: (t: StreetTopic) => void; onBack: () => void }) {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.6 }}
-      className="absolute inset-0 flex flex-col"
-    >
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }} className="absolute inset-0 flex flex-col">
       {/* 背景图片 */}
       <div className="absolute inset-0">
-        <img
-          src="/covers/web/PNG/封面_副本.png"
-          alt=""
-          className="w-full h-full object-cover"
-        />
+        <img src="/covers/web/PNG/封面_副本.png" alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/50" />
       </div>
 
       {/* 导航 */}
       <div className="relative z-10 px-6 md:px-12 py-6">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          返回摄影集
+        <button onClick={onBack} className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm">
+          <ArrowLeft className="w-4 h-4" /> 返回摄影集
         </button>
       </div>
 
@@ -121,13 +73,8 @@ function TopicSelector({
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center">
         <div className="flex flex-col md:flex-row items-center gap-5 md:gap-8 px-6">
           {streetTopics.map((topic, i) => (
-            <motion.button
-              key={topic.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <motion.button key={topic.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
               onClick={() => onSelect(topic)}
               className="px-10 py-3 rounded-full bg-white/90 hover:bg-white text-black font-medium transition-all shadow-lg backdrop-blur-sm text-lg"
             >
@@ -140,190 +87,134 @@ function TopicSelector({
   )
 }
 
-/* ─── Level 1: 封面视图 ─── */
+/* ─── Level 1: 封面视图（参照设计图1） ─── */
 
-function CoverView({
-  topic,
-  onClick,
-  onBack,
-  backLabel,
-}: {
-  topic: StreetTopic
-  onClick: () => void
-  onBack: () => void
-  backLabel: string
-}) {
+function CoverView({ topic, onClick, onBack }: { topic: StreetTopic; onClick: () => void; onBack: () => void }) {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.6 }}
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }}
       className="absolute inset-0 cursor-pointer"
       onClick={onClick}
     >
-      {/* 背景图 70% 不透明度 */}
-      <div className="absolute inset-0">
-        <img
-          src={topic.coverImage}
-          alt={topic.title}
-          className="w-full h-full object-cover"
-          style={{ opacity: 0.7 }}
-        />
-      </div>
+      {/* 全屏背景图 */}
+      <img src={topic.coverImage} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.65 }} />
 
-      {/* 暗色叠加 */}
-      <div className="absolute inset-0 bg-black/30" />
+      {/* 暗色渐变叠加 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
-      {/* 导航 */}
-      <div className="relative z-10 px-6 md:px-12 py-6" onClick={e => e.stopPropagation()}>
+      {/* 导航栏 — 独立可点击区域 */}
+      <div className="absolute top-0 left-0 right-0 z-20 px-6 md:px-12 py-6">
         <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
+          onClick={(e) => { e.stopPropagation(); onBack() }}
+          className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm rounded px-2 py-1 -ml-2"
         >
-          <ArrowLeft className="w-4 h-4" />
-          {backLabel}
+          <ArrowLeft className="w-4 h-4" /> 返回分类
         </button>
       </div>
 
-      {/* 居中标题 */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <motion.h1
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-widest drop-shadow-2xl"
+      {/* 居中英文标题 */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+        <motion.h1 initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          className="text-6xl md:text-7xl lg:text-8xl font-light text-white tracking-[0.15em]"
         >
           {topic.enTitle}
         </motion.h1>
       </div>
 
       {/* 底部提示 */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 text-sm animate-bounce pointer-events-none">
-        点击继续
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/35 text-xs tracking-widest uppercase pointer-events-none">
+        点击继续 ↓
       </div>
     </motion.div>
   )
 }
 
-/* ─── Level 2: 介绍视图 ─── */
+/* ─── Level 2: 介绍视图（参照设计图2） ─── */
 
-function IntroView({
-  topic,
-  onClick,
-  onBack,
-  backLabel,
-}: {
-  topic: StreetTopic
-  onClick: () => void
-  onBack: () => void
-  backLabel: string
-}) {
+function IntroView({ topic, onClick, onBack }: { topic: StreetTopic; onClick: () => void; onBack: () => void }) {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.6 }}
-      className="absolute inset-0 bg-black cursor-pointer overflow-y-auto"
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }}
+      className="absolute inset-0 bg-[#141414] cursor-pointer overflow-y-auto"
       onClick={onClick}
     >
-      {/* 导航 */}
-      <div className="relative z-10 px-6 md:px-12 py-6" onClick={e => e.stopPropagation()}>
+      {/* 导航栏 — 独立可点击 */}
+      <nav className="sticky top-0 z-30 bg-[#141414]/90 backdrop-blur-md px-6 md:px-12 py-5 border-b border-white/5">
         <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
+          onClick={(e) => { e.stopPropagation(); onBack() }}
+          className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm rounded px-2 py-1 -ml-2"
         >
-          <ArrowLeft className="w-4 h-4" />
-          {backLabel}
+          <ArrowLeft className="w-4 h-4" /> 返回预览
         </button>
-      </div>
+      </nav>
 
-      <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 px-6 md:px-12 lg:px-16 pt-4 pb-16 min-h-[calc(100vh-80px)]">
-        {/* 左侧图片 */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="w-full lg:w-1/2 flex-shrink-0"
-          onClick={e => e.stopPropagation()}
-        >
-          <div className="rounded-lg overflow-hidden shadow-2xl border border-white/10">
-            <img
-              src={topic.introImage}
-              alt={topic.introTitle}
-              className="w-full max-h-[60vh] object-cover"
-            />
-          </div>
-        </motion.div>
+      {/* 内容区 — 点击不触发前进 */}
+      <div className="min-h-[calc(100vh-60px)] flex items-center px-6 md:px-12 lg:px-20 py-8 lg:py-12"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-start gap-10 lg:gap-16">
+          {/* 左侧图片 — 参照设计图：紧凑照片卡片 */}
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full lg:w-[42%] flex-shrink-0"
+          >
+            <div className="overflow-hidden shadow-2xl shadow-black/50">
+              <img
+                src={topic.introImage}
+                alt=""
+                className="w-full h-auto max-h-[55vh] object-cover"
+              />
+            </div>
+          </motion.div>
 
-        {/* 右侧文字 */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.35 }}
-          className="w-full lg:w-1/2"
-          onClick={e => e.stopPropagation()}
-        >
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 tracking-wide">
-            {topic.introTitle}
-          </h2>
-          <p className="text-gray-300 leading-relaxed text-base md:text-lg">
-            {topic.introText}
-          </p>
-        </motion.div>
-      </div>
+          {/* 右侧文字 — 参照设计图：标题+正文 */}
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full lg:w-[58%] pt-2"
+          >
+            <h2 className="text-xl md:text-2xl font-bold text-white tracking-wide mb-5">
+              {topic.introTitle}
+            </h2>
+            <p className="text-gray-400 leading-loose text-sm md:text-base">
+              {topic.introText}
+            </p>
 
-      {/* 底部提示 */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 text-sm animate-bounce pointer-events-none">
-        再次点击继续
+            {/* 点击继续提示 */}
+            <div className="mt-8 text-white/25 text-xs">再次点击进入画廊 →</div>
+          </motion.div>
+        </div>
       </div>
     </motion.div>
   )
 }
 
-/* ─── Level 3: 图库视图 ─── */
+/* ─── Level 3: 图库视图（参照设计图3 — masonry 瀑布流） ─── */
 
-function GalleryView({
-  topic,
-  onBack,
-  backLabel,
-}: {
-  topic: StreetTopic
-  onBack: () => void
-  backLabel: string
-}) {
+function GalleryView({ topic, onBack }: { topic: StreetTopic; onBack: () => void }) {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.6 }}
-      className="absolute inset-0 bg-black overflow-y-auto"
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }}
+      className="absolute inset-0 bg-[#111] overflow-y-auto"
     >
-      {/* 导航 */}
-      <div className="sticky top-0 z-30 bg-black/80 backdrop-blur-sm px-6 md:px-12 py-6">
+      {/* 导航栏 — 独立可点击，z-index 最高确保可操作 */}
+      <nav className="sticky top-0 z-50 bg-[#111]/95 backdrop-blur-md px-6 md:px-12 py-5 border-b border-white/5">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
+          className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm rounded px-2 py-1 -ml-2"
         >
-          <ArrowLeft className="w-4 h-4" />
-          {backLabel}
+          <ArrowLeft className="w-4 h-4" /> 返回介绍
         </button>
-      </div>
+      </nav>
 
-      <div className="px-6 md:px-12 lg:px-16 pb-16">
-        {/* 大标题 */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-12 tracking-wide"
+      {/* 大标题 */}
+      <div className="px-6 md:px-12 lg:px-20 pt-8 pb-6">
+        <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+          className="text-3xl md:text-4xl font-bold text-white tracking-wide"
         >
           {topic.title}
         </motion.h1>
+      </div>
 
-        {/* 各板块 */}
+      {/* 各板块 */}
+      <div className="px-6 md:px-12 lg:px-20 pb-20">
         {topic.sections.map((section, sIdx) => (
           <SectionBlock key={section.name} section={section} isLast={sIdx === topic.sections.length - 1} />
         ))}
@@ -332,76 +223,48 @@ function GalleryView({
   )
 }
 
-/* ─── 板块区块 ─── */
+/* ─── 板块区块（参照设计图3） ─── */
 
 function SectionBlock({ section, isLast }: { section: { name: string; images: string[] }; isLast: boolean }) {
   return (
-    <div className={`mb-12 ${!isLast ? 'pb-12 border-b border-white/20' : ''}`}>
-      <div className="flex flex-col md:flex-row gap-6">
-        {/* 左侧标题栏 1/5 */}
-        <div className="md:w-1/5 flex-shrink-0">
-          <h3 className="text-2xl md:text-3xl font-light text-amber-400 tracking-wide sticky top-24">
+    <div className={`${!isLast ? 'pb-14 mb-14 border-b border-white/[0.07]' : ''}`}>
+      <div className="flex flex-col md:flex-row gap-6 lg:gap-10">
+        {/* 左侧标题栏 */}
+        <div className="md:w-[13%] flex-shrink-0 pt-1">
+          <h3 className="text-base md:text-lg font-medium text-amber-500/80 tracking-wider whitespace-nowrap">
             {section.name}
           </h3>
         </div>
 
-        {/* 右侧图片展示区 4/5 */}
-        <div className="md:w-4/5">
-          <AdaptiveImageGrid images={section.images} />
+        {/* 右侧 masonry 图片区 */}
+        <div className="md:w-[87%]">
+          <MasonryGrid images={section.images} />
         </div>
       </div>
     </div>
   )
 }
 
-/* ─── 自适应图片网格 ─── */
+/* ─── Masonry 瀑布流网格（按原始宽高比展示，禁止裁切） ─── */
 
-function AdaptiveImageGrid({ images }: { images: string[] }) {
-  const [, forceUpdate] = useState(0)
-  const orientations = useRef<Map<string, 'landscape' | 'portrait'>>(new Map())
-
-  const handleImageLoad = useCallback((src: string, img: HTMLImageElement) => {
-    if (orientations.current.has(src)) return
-    const ratio = img.naturalWidth / img.naturalHeight
-    orientations.current.set(src, ratio >= 1 ? 'landscape' : 'portrait')
-    forceUpdate(n => n + 1)
-  }, [])
-
-  // Lazy load images as they come into view
-  const getImageSpan = (src: string) => {
-    const orient = orientations.current.get(src)
-    if (!orient) return 'col-span-1 row-span-1'
-    return orient === 'landscape' ? 'col-span-2 row-span-1' : 'col-span-1 row-span-1'
-  }
-
+function MasonryGrid({ images }: { images: string[] }) {
+  // 使用 CSS columns 实现真正的 masonry 布局
+  // 图片保持原始宽高比，从上到下、从左到右自然排列
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
+    <div
+      className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-3 space-y-3"
+      style={{ breakInside: 'avoid' } as React.CSSProperties}
+    >
       {images.map((src, i) => (
-        <LazyImage
-          key={src}
-          src={src}
-          alt={`${i + 1}`}
-          className={getImageSpan(src)}
-          onLoad={(img) => handleImageLoad(src, img)}
-        />
+        <MasonryImage key={src} src={src} index={i} />
       ))}
     </div>
   )
 }
 
-/* ─── 懒加载图片 ─── */
+/* ─── 单张 masonry 图片 ─── */
 
-function LazyImage({
-  src,
-  alt,
-  className,
-  onLoad,
-}: {
-  src: string
-  alt: string
-  className: string
-  onLoad: (img: HTMLImageElement) => void
-}) {
+function MasonryImage({ src, index }: { src: string; index: number }) {
   const [loaded, setLoaded] = useState(false)
   const [inView, setInView] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -411,30 +274,24 @@ function LazyImage({
     if (!el) return
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) { setInView(true); observer.disconnect() } },
-      { rootMargin: '200px' }
+      { rootMargin: '300px' }
     )
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
 
   return (
-    <div ref={ref} className={className}>
-      <div className="relative w-full overflow-hidden rounded bg-white/5" style={{ aspectRatio: '1' }}>
-        {inView ? (
+    <div ref={ref} className="break-inside-avoid mb-3">
+      <div className="overflow-hidden rounded bg-white/[0.04]">
+        {!inView && <div className="animate-pulse bg-white/[0.04]" style={{ paddingTop: '75%' }} />}
+        {inView && (
           <img
             src={src}
-            alt={alt}
+            alt={`${index + 1}`}
             loading="lazy"
-            onLoad={(e) => {
-              setLoaded(true)
-              onLoad(e.currentTarget)
-            }}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-              loaded ? 'opacity-100' : 'opacity-0'
-            }`}
+            onLoad={() => setLoaded(true)}
+            className={`w-full h-auto block transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
           />
-        ) : (
-          <div className="absolute inset-0 animate-pulse bg-white/5" />
         )}
       </div>
     </div>
