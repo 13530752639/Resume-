@@ -96,31 +96,45 @@ function TopicSelector({
       transition={{ duration: 0.6 }}
       className="absolute inset-0 flex flex-col"
     >
+      {/* 背景图片 */}
+      <div className="absolute inset-0">
+        <img
+          src="/covers/web/PNG/封面_副本.png"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+      </div>
+
       {/* 导航 */}
-      <div className="px-6 md:px-12 py-6">
+      <div className="relative z-10 px-6 md:px-12 py-6">
         <button
           onClick={onBack}
           className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
         >
           <ArrowLeft className="w-4 h-4" />
-          返回首页
+          返回摄影集
         </button>
       </div>
 
-      {/* 居中选项 */}
-      <div className="flex-1 flex flex-col items-center justify-center gap-10 px-6">
-        {streetTopics.map((topic, i) => (
-          <motion.button
-            key={topic.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 + i * 0.12 }}
-            onClick={() => onSelect(topic)}
-            className="text-3xl md:text-4xl lg:text-5xl font-light text-white tracking-wide hover:text-red-400 transition-colors"
-          >
-            {topic.title}
-          </motion.button>
-        ))}
+      {/* 横向按钮 */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center">
+        <div className="flex flex-col md:flex-row items-center gap-5 md:gap-8 px-6">
+          {streetTopics.map((topic, i) => (
+            <motion.button
+              key={topic.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => onSelect(topic)}
+              className="px-10 py-3 rounded-full bg-white/90 hover:bg-white text-black font-medium transition-all shadow-lg backdrop-blur-sm text-lg"
+            >
+              {topic.title}
+            </motion.button>
+          ))}
+        </div>
       </div>
     </motion.div>
   )
