@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search } from 'lucide-react'
 import useAppStore from '../../store/useAppStore'
 
 const papers = [
@@ -24,36 +23,47 @@ const papers = [
   },
 ]
 
+/* ─── 滚动防抖 ─── */
+
+function useScrollDebounce(
+  onScroll: (deltaY: number) => void,
+  cooldownMs = 800
+) {
+  const lastTimeRef = useRef(0)
+
+  const handler = useCallback((e: WheelEvent) => {
+    e.preventDefault()
+    const now = Date.now()
+    if (now - lastTimeRef.current < cooldownMs) return
+    if (Math.abs(e.deltaY) < 30) return
+    lastTimeRef.current = now
+    onScroll(e.deltaY)
+  }, [cooldownMs, onScroll])
+
+  useEffect(() => {
+    window.addEventListener('wheel', handler, { passive: false })
+    return () => window.removeEventListener('wheel', handler)
+  }, [handler])
+}
+
 export default function AcademicSection() {
   const { navigateTo } = useAppStore()
   const [activeIndex, setActiveIndex] = useState(0)
-  const containerRef = useRef<HTMLDivElement>(null)
 
-  const handleWheel = useCallback((e: WheelEvent) => {
-    e.preventDefault()
-    if (Math.abs(e.deltaY) < 40) return
-    if (e.deltaY > 0) {
+  const handleScrollSwitch = useCallback((deltaY: number) => {
+    if (deltaY > 0) {
       setActiveIndex(prev => Math.min(papers.length - 1, prev + 1))
     } else {
       setActiveIndex(prev => Math.max(0, prev - 1))
     }
   }, [])
 
-  useEffect(() => {
-    const el = containerRef.current
-    if (el) {
-      el.addEventListener('wheel', handleWheel, { passive: false })
-      return () => el.removeEventListener('wheel', handleWheel)
-    }
-  }, [handleWheel])
+  useScrollDebounce(handleScrollSwitch, 800)
 
   const paper = papers[activeIndex]
 
   return (
-    <section
-      ref={containerRef}
-      className="min-h-screen bg-black relative overflow-hidden"
-    >
+    <section className="min-h-screen bg-black relative overflow-hidden">
       {/* 暖光效果 */}
       <div className="absolute inset-0 bg-gradient-to-br from-amber-900/10 via-black to-amber-900/5 pointer-events-none" />
       <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
@@ -70,13 +80,10 @@ export default function AcademicSection() {
           <button onClick={() => navigateTo('photo-works')} className="hover:text-white transition-colors">摄影作品</button>
           <span className="text-white/20">|</span>
           <button onClick={() => navigateTo('media-works')} className="hover:text-white transition-colors">自媒体作品</button>
-          <button className="p-2 hover:bg-white/10 rounded-full transition-colors ml-2">
-            <Search className="w-5 h-5" />
-          </button>
         </nav>
       </div>
 
-      <div className="relative z-10 px-6 md:px-12 lg:px-16 py-8 flex-1 flex items-center min-h-[calc(100vh-100px)]">
+      <div className="relative z-10 px-6 md:px-12 lg:px-16 py-8 flex-1 flex items-center min-h-[calc(100vh-180px)]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -116,22 +123,24 @@ export default function AcademicSection() {
                   {paper.description}
                 </p>
 
-                {/* 分页指示器 */}
+                {/* 手动序号跳转 */}
                 <div className="mt-10 flex items-center gap-4">
                   <div className="flex gap-2">
                     {papers.map((p, i) => (
-                      <div
+                      <button
                         key={p.id}
-                        className={`h-0.5 rounded-full transition-all duration-500 ${
-                          i === activeIndex
-                            ? 'w-10 bg-red-600'
-                            : 'w-4 bg-white/20 cursor-pointer hover:bg-white/40'
-                        }`}
                         onClick={() => setActiveIndex(i)}
-                      />
+                        className={`w-8 h-8 rounded-full text-xs font-medium transition-all duration-300 flex items-center justify-center ${
+                          i === activeIndex
+                            ? 'bg-red-600 text-white shadow-lg shadow-red-600/30 scale-110'
+                            : 'bg-white/10 text-white/60 hover:bg-white/25 hover:text-white'
+                        }`}
+                      >
+                        {i + 1}
+                      </button>
                     ))}
                   </div>
-                  <span className="text-white/40 text-sm">
+                  <span className="text-white/40 text-sm min-w-[3rem] text-center">
                     {activeIndex + 1} / {papers.length}
                   </span>
                 </div>
@@ -141,7 +150,7 @@ export default function AcademicSection() {
         </motion.div>
       </div>
 
-      {/* 底部轮播提示 */}
+      {/* 底部滚动提示 */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 text-sm flex items-center gap-2 animate-bounce">
         <span>滚动切换</span>
         <span>↓</span>
