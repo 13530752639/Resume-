@@ -76,15 +76,18 @@ export default function AboutSection() {
             </div>
 
             {/* 姓名 — 点击查看简历 */}
-            <a
-              href="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/compressed/Resume.jpg"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-2xl font-medium text-gray-900 tracking-wide mt-5 mb-4 hover:text-blue-600 hover:underline transition-colors cursor-pointer inline-block"
-              title="点击查看简历"
-            >
-              张泽龙
-            </a>
+            <div className="flex items-baseline gap-2 mt-5 mb-4">
+              <a
+                href="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/compressed/Resume.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl font-medium text-gray-900 tracking-wide hover:text-blue-600 hover:underline transition-colors cursor-pointer inline-block"
+                title="点击查看简历"
+              >
+                张泽龙
+              </a>
+              <span className="text-xs text-gray-400 cursor-help">📄 点击查看简历</span>
+            </div>
 
             {/* 个人简介 */}
             <p className="text-gray-600 leading-relaxed text-base">{bio}</p>
