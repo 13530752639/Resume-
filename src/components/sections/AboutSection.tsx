@@ -38,30 +38,41 @@ export default function AboutSection() {
           简介<span className="text-red-600">/</span>Header<span className="text-red-600">/</span>Intro<span className="text-red-600">*</span>
         </motion.h2>
 
-        {/* 主内容：左(图A+姓名+文字) + 右(竖版大肖像，视觉重心) */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6 lg:gap-8 items-start">
-          {/* ── 左侧：16:9主图 + 姓名 + 文字信息 ── */}
+        {/* 主内容：左(肖像) + 右(文字) — 居中排版 */}
+        <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-[260px_1fr] gap-8 md:gap-10 items-center">
+          {/* ── 左侧：竖版肖像 ── */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col gap-5"
+            className="flex flex-col items-center md:items-start"
           >
-            {/* 图A — 16:9 横幅图（适中尺寸） */}
             <div
-              className="relative overflow-hidden rounded-xl max-w-sm"
+              className="overflow-hidden rounded-xl w-full max-w-[220px] mx-auto md:mx-0"
               style={{
-                boxShadow: '0 12px 36px -10px rgba(0,0,0,0.14), 0 4px 8px -3px rgba(0,0,0,0.04)'
+                boxShadow: '0 16px 48px -12px rgba(0,0,0,0.16), 0 4px 12px -4px rgba(0,0,0,0.06)',
+                aspectRatio: '3/4',
               }}
             >
               <img
-                src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/web/DSC02125_sm.jpg"
-                alt=""
-                className="w-full h-auto object-cover"
+                src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/web/首页右侧照片_sm.jpg"
+                alt="张泽龙"
+                className="w-full h-full object-cover object-top"
                 loading="eager"
               />
             </div>
+            <p className="mt-4 text-xs text-gray-400 italic text-center md:text-left">
+              Film Director &nbsp;·&nbsp; Visual Storyteller
+            </p>
+          </motion.div>
 
+          {/* ── 右侧：姓名 + 文字信息 ── */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            className="flex flex-col gap-5"
+          >
             {/* 姓名 */}
             <h3 className="text-2xl font-medium text-gray-900 tracking-wide">张泽龙</h3>
 
@@ -79,34 +90,6 @@ export default function AboutSection() {
                 <p className="text-gray-800 font-medium text-sm leading-relaxed">13530752639 / zzl135307（微信）</p>
               </div>
             </div>
-          </motion.div>
-
-          {/* ── 右侧：竖版肖像（适中尺寸，视觉重心）── */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="relative flex flex-col lg:sticky lg:top-20"
-          >
-            <div
-              className="overflow-hidden rounded-xl flex-shrink-0"
-              style={{
-                boxShadow: '0 16px 48px -12px rgba(0,0,0,0.16), 0 4px 12px -4px rgba(0,0,0,0.06)',
-                aspectRatio: '3/4',
-              }}
-            >
-              <img
-                src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/web/首页右侧照片_sm.jpg"
-                alt="张泽龙"
-                className="w-full h-full object-cover object-top"
-                loading="eager"
-              />
-            </div>
-
-            {/* 文字3 — 右下角补充说明 */}
-            <p className="mt-5 text-sm text-gray-500 leading-relaxed italic">
-              Film Director &nbsp;·&nbsp; Visual Storyteller
-            </p>
           </motion.div>
         </div>
       </div>
