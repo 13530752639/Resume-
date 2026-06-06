@@ -37,65 +37,66 @@ export default function AboutSection() {
           简介<span className="text-red-600">/</span>Header<span className="text-red-600">/</span>Intro<span className="text-red-600">*</span>
         </motion.h2>
 
-        {/* 上部：左图 + 右图 — 缩小比例、居中 */}
-        <div className="flex justify-center mb-8">
-          <div className="grid grid-cols-2 gap-6 lg:gap-10 max-w-2xl">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="overflow-hidden rounded-lg shadow-lg"
-            >
-              <img
-                src="/covers/web/DSC02125_sm.jpg"
-                alt=""
-                className="w-full h-auto"
-                loading="eager"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="overflow-hidden rounded-lg shadow-lg"
-            >
-              <img
-                src="/covers/web/首页右侧照片_sm.jpg"
-                alt=""
-                className="w-full h-auto"
-                loading="eager"
-              />
-            </motion.div>
-          </div>
+        {/* 主内容：左图(16:9) + 右侧(肖像+姓名+文字) — 参考原始设计 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+          {/* 左侧：16:9 主图 */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+            style={{
+              boxShadow: '0 20px 60px -15px rgba(0,0,0,0.2), 0 4px 12px -4px rgba(0,0,0,0.08)'
+            }}
+          >
+            <img
+              src="/covers/web/DSC02125_sm.jpg"
+              alt=""
+              className="w-full h-auto rounded-xl"
+              loading="eager"
+            />
+          </motion.div>
+
+          {/* 右侧：肖像 + 姓名 + 介绍 */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            className="flex flex-col justify-center"
+          >
+            {/* 肖像 */}
+            <div className="mb-6">
+              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg mx-auto lg:mx-0">
+                <img
+                  src="/covers/web/首页右侧照片_sm.jpg"
+                  alt="张泽龙"
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                />
+              </div>
+            </div>
+
+            {/* 姓名 */}
+            <h2 className="text-2xl font-medium text-gray-800 tracking-wide mb-6">张泽龙</h2>
+
+            {/* 个人简介 */}
+            <div className="mb-8">
+              <p className="text-gray-600 leading-relaxed text-base">{bio}</p>
+            </div>
+
+            {/* 教育/联系方式 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="p-4 rounded-lg bg-gray-50 border border-gray-100">
+                <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">教育背景</p>
+                <p className="text-gray-800 font-medium text-sm">中央民族大学 新闻与传播学院 硕士研究生</p>
+              </div>
+              <div className="p-4 rounded-lg bg-gray-50 border border-gray-100">
+                <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">联系方式</p>
+                <p className="text-gray-800 font-medium text-sm">13530752639 / zzl135307（微信）</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
-
-        {/* 下部：文字信息 — 含姓名张泽龙 */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="max-w-3xl mx-auto space-y-8"
-        >
-          <div className="text-center mb-2">
-            <h2 className="text-2xl font-medium text-gray-800 tracking-wide">张泽龙</h2>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-medium text-gray-800 mb-3">个人简介</h3>
-            <p className="text-gray-600 leading-relaxed text-base">{bio}</p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 rounded-lg bg-gray-50 border border-gray-100">
-              <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">教育背景</p>
-              <p className="text-gray-800 font-medium">中央民族大学 新闻与传播学院 硕士研究生</p>
-            </div>
-            <div className="p-4 rounded-lg bg-gray-50 border border-gray-100">
-              <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">联系方式</p>
-              <p className="text-gray-800 font-medium">13530752639 / zzl135307（微信）</p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   )
