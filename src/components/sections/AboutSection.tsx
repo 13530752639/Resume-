@@ -49,7 +49,7 @@ export default function AboutSection() {
           >
             {/* 图A — 16:9 横幅图（适中尺寸） */}
             <div
-              className="relative overflow-hidden rounded-xl max-w-md"
+              className="relative overflow-hidden rounded-xl max-w-sm"
               style={{
                 boxShadow: '0 12px 36px -10px rgba(0,0,0,0.14), 0 4px 8px -3px rgba(0,0,0,0.04)'
               }}
