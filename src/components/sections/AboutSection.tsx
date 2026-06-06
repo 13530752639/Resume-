@@ -27,74 +27,86 @@ export default function AboutSection() {
         </nav>
       </div>
 
-      <div className="px-6 md:px-12 lg:px-16 py-12">
+      <div className="px-6 md:px-12 lg:px-16 py-10 lg:py-14">
+        {/* 标题 */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-2xl font-light mb-12 text-gray-800"
+          className="text-2xl font-light mb-10 lg:mb-14 text-gray-800"
         >
           简介<span className="text-red-600">/</span>Header<span className="text-red-600">/</span>Intro<span className="text-red-600">*</span>
         </motion.h2>
 
-        {/* 主内容：左图(16:9) + 右侧(肖像+姓名+文字) — 参考原始设计 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-          {/* 左侧：16:9 主图 */}
+        {/* 主内容：左(图A+姓名+文字) + 右(竖版大肖像) */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10 lg:gap-16 items-start">
+          {/* ── 左侧：16:9主图 + 姓名 + 文字信息 ── */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative"
-            style={{
-              boxShadow: '0 20px 60px -15px rgba(0,0,0,0.2), 0 4px 12px -4px rgba(0,0,0,0.08)'
-            }}
+            className="flex flex-col gap-7"
           >
-            <img
-              src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/web/DSC02125_sm.jpg"
-              alt=""
-              className="w-full h-auto rounded-xl"
-              loading="eager"
-            />
+            {/* 图A — 16:9 横幅大图 */}
+            <div
+              className="relative overflow-hidden rounded-xl"
+              style={{
+                boxShadow: '0 20px 60px -15px rgba(0,0,0,0.18), 0 4px 12px -4px rgba(0,0,0,0.06)'
+              }}
+            >
+              <img
+                src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/web/DSC02125_sm.jpg"
+                alt=""
+                className="w-full h-auto object-cover"
+                loading="eager"
+              />
+            </div>
+
+            {/* 姓名 */}
+            <h3 className="text-2xl font-medium text-gray-900 tracking-wide">张泽龙</h3>
+
+            {/* 文字1 — 个人简介 */}
+            <p className="text-gray-600 leading-relaxed text-base">{bio}</p>
+
+            {/* 文字2 — 教育背景 / 联系方式 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div className="p-5 rounded-xl bg-gray-50 border border-gray-100">
+                <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">教育背景</p>
+                <p className="text-gray-800 font-medium text-sm leading-relaxed">中央民族大学 新闻与传播学院 硕士研究生</p>
+              </div>
+              <div className="p-5 rounded-xl bg-gray-50 border border-gray-100">
+                <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">联系方式</p>
+                <p className="text-gray-800 font-medium text-sm leading-relaxed">13530752639 / zzl135307（微信）</p>
+              </div>
+            </div>
           </motion.div>
 
-          {/* 右侧：肖像 + 姓名 + 介绍 */}
+          {/* ── 右侧：竖版大肖像（占满高度）── */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="flex flex-col justify-center"
+            className="relative flex flex-col lg:sticky lg:top-24"
           >
-            {/* 肖像 */}
-            <div className="mb-6">
-              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg mx-auto lg:mx-0">
-                <img
-                  src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/web/首页右侧照片_sm.jpg"
-                  alt="张泽龙"
-                  className="w-full h-full object-cover"
-                  loading="eager"
-                />
-              </div>
+            <div
+              className="overflow-hidden rounded-xl flex-shrink-0"
+              style={{
+                boxShadow: '0 20px 60px -15px rgba(0,0,0,0.18), 0 4px 12px -4px rgba(0,0,0,0.06)',
+                aspectRatio: '3/4',
+              }}
+            >
+              <img
+                src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/web/首页右侧照片_sm.jpg"
+                alt="张泽龙"
+                className="w-full h-full object-cover object-top"
+                loading="eager"
+              />
             </div>
 
-            {/* 姓名 */}
-            <h2 className="text-2xl font-medium text-gray-800 tracking-wide mb-6">张泽龙</h2>
-
-            {/* 个人简介 */}
-            <div className="mb-8">
-              <p className="text-gray-600 leading-relaxed text-base">{bio}</p>
-            </div>
-
-            {/* 教育/联系方式 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 rounded-lg bg-gray-50 border border-gray-100">
-                <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">教育背景</p>
-                <p className="text-gray-800 font-medium text-sm">中央民族大学 新闻与传播学院 硕士研究生</p>
-              </div>
-              <div className="p-4 rounded-lg bg-gray-50 border border-gray-100">
-                <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">联系方式</p>
-                <p className="text-gray-800 font-medium text-sm">13530752639 / zzl135307（微信）</p>
-              </div>
-            </div>
+            {/* 文字3 — 右下角补充说明 */}
+            <p className="mt-5 text-sm text-gray-500 leading-relaxed italic">
+              Film Director &nbsp;·&nbsp; Visual Storyteller
+            </p>
           </motion.div>
         </div>
       </div>
