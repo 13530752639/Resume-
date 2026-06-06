@@ -6,7 +6,7 @@ const papers = [
   {
     id: 'nca',
     title: '《INTERPRETING CHENG DIEYI FROM GENDER PERFORMATIVITY》',
-    image: '/academic/NCA邀请函.png',
+    image: '/academic/NCA邀请函.jpg',
     description: '本文依托巴特勒性别操演理论，结合都岚岚提出的戏剧、仪式、语言三维分析框架，探究《霸王别姬》程蝶衣女性化身份形成与悲剧成因。论文入选新传四大会议"NCA"。',
   },
   {

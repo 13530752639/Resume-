@@ -22,7 +22,7 @@ const newsTopic: NewsTopic = {
   id: 'stdx',
   title: '汕头大学东海岸校区',
   enTitle: 'Under-Construction Campus',
-  coverImage: `${BASE}/IMG_7434.JPG`,
+  coverImage: `${BASE}/IMG_7434.jpg`,
   introImage: `${BASE}/IMG_7436.jpg`,
   introTitle: '汕头大学东海岸校区｜山海新章，学府生长',
   introText:
@@ -31,11 +31,11 @@ const newsTopic: NewsTopic = {
     {
       name: '汕头大学东海岸校区',
       images: [
-        'DJI_0254.JPG', 'DJI_0296.JPG', 'DJI_0299.JPG', 'DJI_0326.JPG',
-        'DJI_0330.JPG', 'DJI_0335.JPG', 'DJI_0336.JPG', 'DJI_0337.JPG',
-        'IMG_7427.jpg', 'IMG_7428.JPG', 'IMG_7429.jpg', 'IMG_7430.JPG',
-        'IMG_7431.JPG', 'IMG_7432.JPG', 'IMG_7433.JPG', 'IMG_7434.JPG',
-        'IMG_7435.JPG', 'IMG_7436.jpg',
+        'DJI_0254.jpg', 'DJI_0296.jpg', 'DJI_0299.jpg', 'DJI_0326.jpg',
+        'DJI_0330.jpg', 'DJI_0335.jpg', 'DJI_0336.jpg', 'DJI_0337.jpg',
+        'IMG_7427.jpg', 'IMG_7428.jpg', 'IMG_7429.jpg', 'IMG_7430.jpg',
+        'IMG_7431.jpg', 'IMG_7432.jpg', 'IMG_7433.jpg', 'IMG_7434.jpg',
+        'IMG_7435.jpg', 'IMG_7436.jpg',
       ].map(f => `${BASE}/${f}`),
     },
   ],

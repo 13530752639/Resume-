@@ -9,7 +9,7 @@ interface StreetPhotoModuleProps {
   onBack: () => void
 }
 
-const BG_IMAGE = '/covers/web/PNG/street-cover.png'
+const BG_IMAGE = '/covers/web/compressed/street-cover.jpg'
 
 export default function StreetPhotoModule({ onBack }: StreetPhotoModuleProps) {
   const [level, setLevel] = useState<Level>(0)
