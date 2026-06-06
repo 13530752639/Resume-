@@ -5,6 +5,8 @@ import useAppStore from '../../store/useAppStore'
 import categoriesData from '../../data/categories.json'
 import StreetPhotoModule from './StreetPhotoModule'
 import PortraitPhotoModule from './PortraitPhotoModule'
+import NewsPhotoModule from './NewsPhotoModule'
+import FeaturePhotoModule from './FeaturePhotoModule'
 
 const videoCategories = [
   { id: 'aigc', title: 'AIGC影像', enTitle: 'AIGC' },
@@ -140,7 +142,7 @@ export default function WorksCategorySection() {
   }
 
   const fullscreenWorks = getFullscreenWorks()
-  const isFullscreen = (isMediaPage && !selectedSubCategory) || (!!selectedSubCategory && !(isPhotoPage && (selectedSubCategory === 'street' || selectedSubCategory === 'portrait')))
+  const isFullscreen = (isMediaPage && !selectedSubCategory) || (!!selectedSubCategory && !(isPhotoPage && (selectedSubCategory === 'street' || selectedSubCategory === 'portrait' || selectedSubCategory === 'news' || selectedSubCategory === 'feature')))
 
   // 滚动防抖切换
   const handleScrollSwitch = useCallback((deltaY: number) => {
@@ -160,10 +162,12 @@ export default function WorksCategorySection() {
 
   const isStreetPhoto = isPhotoPage && selectedSubCategory === 'street'
   const isPortraitPhoto = isPhotoPage && selectedSubCategory === 'portrait'
+  const isNewsPhoto = isPhotoPage && selectedSubCategory === 'news'
+  const isFeaturePhoto = isPhotoPage && selectedSubCategory === 'feature'
 
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {!isFullscreen && !isStreetPhoto && !isPortraitPhoto && (
+      {!isFullscreen && !isStreetPhoto && !isPortraitPhoto && !isNewsPhoto && !isFeaturePhoto && (
         <div className="absolute inset-0">
           <img src={getBgImage()} alt="Background" className="w-full h-full object-cover" />
           <div className={`absolute inset-0 ${getBgOverlay()}`} />
@@ -188,11 +192,17 @@ export default function WorksCategorySection() {
             <StreetPhotoModule key="street-photo" onBack={handleFullscreenBack} />
           )}
           {isPortraitPhoto && (
-            <PortraitPhotoModule key="portrait-photo" onBack={handleFullscreenBack} />
-          )}
-        </AnimatePresence>
+          <PortraitPhotoModule key="portrait-photo" onBack={handleFullscreenBack} />
+        )}
+        {isNewsPhoto && (
+          <NewsPhotoModule key="news-photo" onBack={handleFullscreenBack} />
+        )}
+        {isFeaturePhoto && (
+          <FeaturePhotoModule key="feature-photo" onBack={handleFullscreenBack} />
+        )}
+      </AnimatePresence>
 
-        {!isFullscreen && !isStreetPhoto && !isPortraitPhoto && (
+        {!isFullscreen && !isStreetPhoto && !isPortraitPhoto && !isNewsPhoto && !isFeaturePhoto && (
           <div className="flex items-center justify-between px-6 md:px-12 lg:px-16 py-6">
             <button
               onClick={handleBack}
@@ -221,7 +231,7 @@ export default function WorksCategorySection() {
           </div>
         )}
 
-        {!isFullscreen && !isStreetPhoto && !isPortraitPhoto && (
+        {!isFullscreen && !isStreetPhoto && !isPortraitPhoto && !isNewsPhoto && !isFeaturePhoto && (
         <div className="flex-1 flex items-center">
             <motion.div
               key="categories"
