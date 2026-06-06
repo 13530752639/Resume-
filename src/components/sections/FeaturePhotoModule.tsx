@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react'
+import { ArrowLeft, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import featureTopic, { type FeatureTopic } from '../../data/featurePhotos'
 
 type Level = 1 | 2
@@ -75,44 +75,36 @@ function IntroView({ topic, onClick, onBack }: {
   )
 }
 
-/* ─── Level 2：3D 书籍 ─── */
+/* ─── Level 2：16:9 横排画廊 ─── */
 
 function BookView({ topic, onBack }: {
   topic: FeatureTopic; onBack: () => void
 }) {
   const [currentPage, setCurrentPage] = useState(0)
-  const [isFlipping, setIsFlipping] = useState(false)
-  const [flipDirection, setFlipDirection] = useState<'next' | 'prev'>('next')
+  const [isTransitioning, setIsTransitioning] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
-  const flippingRef = useRef(false)
 
   const totalPages = topic.images.length
 
-  const flipTo = useCallback((direction: 'next' | 'prev') => {
-    if (flippingRef.current) return
+  const goToPage = useCallback((direction: 'next' | 'prev') => {
+    if (isTransitioning) return
     if (direction === 'next' && currentPage >= totalPages - 1) return
     if (direction === 'prev' && currentPage <= 0) return
-
-    flippingRef.current = true
-    setIsFlipping(true)
-    setFlipDirection(direction)
-    setTimeout(() => {
-      setCurrentPage(prev => direction === 'next' ? prev + 1 : prev - 1)
-      flippingRef.current = false
-      setIsFlipping(false)
-    }, 600)
-  }, [currentPage, totalPages])
+    setIsTransitioning(true)
+    setCurrentPage(prev => direction === 'next' ? prev + 1 : prev - 1)
+    setTimeout(() => setIsTransitioning(false), 350)
+  }, [currentPage, totalPages, isTransitioning])
 
   // Keyboard navigation
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') flipTo('prev')
-      if (e.key === 'ArrowRight') flipTo('next')
+      if (e.key === 'ArrowLeft') goToPage('prev')
+      if (e.key === 'ArrowRight') goToPage('next')
       if (e.key === 'Escape') setLightboxIndex(null)
     }
     window.addEventListener('keydown', handleKey)
     return () => window.removeEventListener('keydown', handleKey)
-  }, [flipTo])
+  }, [goToPage])
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -130,92 +122,78 @@ function BookView({ topic, onBack }: {
         <span className="text-white/30 text-xs tracking-wider">{topic.title}</span>
       </div>
 
-      {/* Book area */}
-      <div className="flex-1 flex items-center justify-center px-4 md:px-12 pt-16 pb-20">
-        <div className="relative w-full max-w-6xl aspect-[1.6/1] flex items-center justify-center"
-          style={{ perspective: '1800px' }}>
-          {/* Left page */}
-          <div className="absolute inset-y-0 left-0 w-1/2 flex items-center justify-center z-10"
-            onClick={() => flipTo('prev')}
-          >
-            <div className="w-full h-full max-w-[480px] overflow-hidden rounded-l-lg shadow-2xl
-              bg-gradient-to-r from-black/5 to-transparent cursor-pointer group"
-              style={{
-                transformOrigin: 'right center',
-                transform: isFlipping && flipDirection === 'prev'
-                  ? 'rotateY(-180deg)'
-                  : 'rotateY(0deg)',
-                transition: isFlipping && flipDirection === 'prev' ? 'transform 0.6s ease-in-out' : 'none',
-                transformStyle: 'preserve-3d',
-              }}>
-              <img
-                src={topic.images[Math.max(0, currentPage - 1)] || topic.images[0]}
-                alt=""
-                className="w-full h-full object-contain bg-[#2a2a2a] p-2"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setLightboxIndex(Math.max(0, currentPage - 1))
-                }}
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                <ChevronLeft className="w-8 h-8 text-white/0 group-hover:text-white/60 transition-all" />
-              </div>
-            </div>
-          </div>
+      {/* Gallery area — 16:9 全宽展示 */}
+      <div className="flex-1 flex items-center justify-center px-6 md:px-12 lg:px-20 pt-20 pb-24">
+        <div className="relative w-full max-w-5xl aspect-video overflow-hidden rounded-lg shadow-2xl shadow-black/50 bg-[#222]"
+          style={{ perspective: '1200px' }}
+        >
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={currentPage}
+              src={topic.images[currentPage]}
+              alt=""
+              initial={{ opacity: 0, x: isTransitioning ? 40 : 0, scale: 1.02 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.35, ease: 'easeInOut' }}
+              className="w-full h-full object-contain cursor-pointer"
+              onClick={() => setLightboxIndex(currentPage)}
+            />
+          </AnimatePresence>
 
-          {/* Right page */}
-          <div className="absolute inset-y-0 right-0 w-1/2 flex items-center justify-center z-10"
-            onClick={() => flipTo('next')}
+          {/* Navigation overlay areas */}
+          <button
+            onClick={(e) => { e.stopPropagation(); goToPage('prev') }}
+            disabled={currentPage <= 0}
+            className="absolute inset-y-0 left-0 w-1/4 z-10 disabled:opacity-0 group transition-opacity"
           >
-            <div className="w-full h-full max-w-[480px] overflow-hidden rounded-r-lg shadow-2xl
-              bg-gradient-to-l from-black/5 to-transparent cursor-pointer group"
-              style={{
-                transformOrigin: 'left center',
-                transform: isFlipping && flipDirection === 'next'
-                  ? 'rotateY(180deg)'
-                  : 'rotateY(0deg)',
-                transition: isFlipping && flipDirection === 'next' ? 'transform 0.6s ease-in-out' : 'none',
-                transformStyle: 'preserve-3d',
-              }}>
-              <img
-                src={topic.images[currentPage]}
-                alt=""
-                className="w-full h-full object-contain bg-[#2a2a2a] p-2"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setLightboxIndex(currentPage)
-                }}
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                <ChevronRight className="w-8 h-8 text-white/0 group-hover:text-white/60 transition-all" />
-              </div>
+            <div className="absolute inset-y-0 left-4 flex items-center">
+              <ChevronLeft className="w-10 h-10 text-white/0 group-hover:text-white/60 drop-shadow-lg transition-all" />
             </div>
-          </div>
+          </button>
 
-          {/* Book spine */}
-          <div className="absolute inset-y-[5%] left-1/2 w-[3px] -ml-[1.5px] bg-gradient-to-b from-amber-600/60 via-amber-500/40 to-amber-600/60 z-20 pointer-events-none rounded-sm">
-            <div className="absolute inset-0 bg-amber-500/20 blur-[1px]" />
-          </div>
+          <button
+            onClick={(e) => { e.stopPropagation(); goToPage('next') }}
+            disabled={currentPage >= totalPages - 1}
+            className="absolute inset-y-0 right-0 w-1/4 z-10 disabled:opacity-0 group transition-opacity"
+          >
+            <div className="absolute inset-y-0 right-4 flex items-center">
+              <ChevronRight className="w-10 h-10 text-white/0 group-hover:text-white/60 drop-shadow-lg transition-all" />
+            </div>
+          </button>
         </div>
       </div>
 
       {/* Bottom page counter */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 z-30">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-5 z-30">
         <button
-          onClick={() => flipTo('prev')}
+          onClick={() => goToPage('prev')}
           disabled={currentPage <= 0}
           className="text-white/40 hover:text-white disabled:opacity-20 transition-colors p-2">
           <ChevronLeft className="w-5 h-5" />
         </button>
-        <span className="text-white/40 text-xs tracking-wider tabular-nums">
+        <span className="text-white/50 text-sm tracking-wider tabular-nums min-w-[60px] text-center">
           {currentPage + 1} / {totalPages}
         </span>
         <button
-          onClick={() => flipTo('next')}
+          onClick={() => goToPage('next')}
           disabled={currentPage >= totalPages - 1}
           className="text-white/40 hover:text-white disabled:opacity-20 transition-colors p-2">
           <ChevronRight className="w-5 h-5" />
         </button>
+        {/* Dot indicators */}
+        <div className="flex items-center gap-1.5 ml-4">
+          {topic.images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => { if (!isTransitioning) { setIsTransitioning(true); setCurrentPage(i); setTimeout(() => setIsTransitioning(false), 350) } }}
+              className={`rounded-full transition-all ${
+                i === currentPage ? 'bg-white/70 w-6' : 'bg-white/25 w-1.5 h-1.5 hover:bg-white/40'
+              }`}
+              style={{ height: i === currentPage ? '6px' : '6px' }}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Lightbox */}
@@ -248,7 +226,7 @@ function BookView({ topic, onBack }: {
               transition={{ duration: 0.25 }}
               src={topic.images[lightboxIndex]}
               alt=""
-              className="max-w-[90vw] max-h-[90vh] object-contain select-none"
+              className="max-w-[90vw] max-h-[85vh] object-contain select-none"
               onClick={(e) => e.stopPropagation()}
             />
             <button
