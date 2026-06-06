@@ -54,16 +54,16 @@ function IntroView({ topic, onClick, onBack }: {
       >
         <div className="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 1, delay: 0.1 }}
             className="w-full lg:w-[42%] flex-shrink-0 flex items-center"
           >
-            <div className="w-full overflow-hidden rounded-lg shadow-2xl shadow-black/50">
-              <img src={topic.introImage} alt="" className="w-full h-auto object-contain" />
+            <div className="overflow-hidden shadow-2xl shadow-black/50 rounded-lg w-full">
+              <img src={topic.introImage} alt="" className="w-full max-h-[60vh] lg:max-h-none object-contain" />
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-full lg:w-[58%] pt-2"
+            transition={{ duration: 1, delay: 0.2 }}
+            className="w-full lg:w-[58%] flex flex-col justify-center pt-2"
           >
             <h2 className="text-xl md:text-2xl font-bold text-white tracking-wide mb-5">{topic.introTitle}</h2>
             <p className="text-gray-400 leading-loose text-sm md:text-base">{topic.introText}</p>
@@ -135,7 +135,6 @@ function BookView({ topic, onBack }: {
         <div className="relative w-full max-w-6xl aspect-[1.6/1] flex items-center justify-center"
           style={{ perspective: '1800px' }}>
           {/* Left page */}
-          {currentPage > 0 && (
           <div className="absolute inset-y-0 left-0 w-1/2 flex items-center justify-center z-10"
             onClick={() => flipTo('prev')}
           >
@@ -150,12 +149,12 @@ function BookView({ topic, onBack }: {
                 transformStyle: 'preserve-3d',
               }}>
               <img
-                src={topic.images[currentPage - 1]}
+                src={topic.images[Math.max(0, currentPage - 1)] || topic.images[0]}
                 alt=""
                 className="w-full h-full object-contain bg-[#2a2a2a] p-2"
                 onClick={(e) => {
                   e.stopPropagation()
-                  setLightboxIndex(currentPage - 1)
+                  setLightboxIndex(Math.max(0, currentPage - 1))
                 }}
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
@@ -163,12 +162,6 @@ function BookView({ topic, onBack }: {
               </div>
             </div>
           </div>
-          )}
-          {currentPage === 0 && (
-          <div className="absolute inset-y-0 left-0 w-1/2 flex items-center justify-center z-10 pointer-events-none">
-            <div className="w-full h-full max-w-[480px] overflow-hidden rounded-l-lg bg-[#1e1e1e]" />
-          </div>
-          )}
 
           {/* Right page */}
           <div className="absolute inset-y-0 right-0 w-1/2 flex items-center justify-center z-10"
@@ -199,8 +192,10 @@ function BookView({ topic, onBack }: {
             </div>
           </div>
 
-          {/* Spine */}
-          <div className="absolute inset-y-[5%] left-1/2 w-[1px] bg-white/20 z-20 pointer-events-none" />
+          {/* Book spine */}
+          <div className="absolute inset-y-[5%] left-1/2 w-[3px] -ml-[1.5px] bg-gradient-to-b from-amber-600/60 via-amber-500/40 to-amber-600/60 z-20 pointer-events-none rounded-sm">
+            <div className="absolute inset-0 bg-amber-500/20 blur-[1px]" />
+          </div>
         </div>
       </div>
 

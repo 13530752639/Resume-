@@ -439,6 +439,15 @@ function FullscreenPlayer({
               playsInline
               preload="auto"
               className="absolute inset-0 w-full h-full object-cover"
+              onError={(e) => {
+                const target = e.currentTarget
+                target.style.display = 'none'
+                const parent = target.parentElement
+                if (parent) {
+                  parent.classList.add('flex', 'items-center', 'justify-center')
+                  parent.innerHTML = `<div class="text-white/40 text-sm">视频加载失败，请检查网络后重试</div>`
+                }
+              }}
             />
           ) : (
             <img

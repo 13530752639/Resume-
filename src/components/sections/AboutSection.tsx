@@ -1,10 +1,8 @@
 import { motion } from 'framer-motion'
 import { Search } from 'lucide-react'
-import { worksData } from '../../store/useAppStore'
 import useAppStore from '../../store/useAppStore'
 
 export default function AboutSection() {
-  const profile = worksData.profile
   const { navigateTo } = useAppStore()
   const bio = '专注于视听语言创作与影像叙事，擅长将AIGC技术与传统影视制作相融合，利用人工智能技术探索数字时代的影像表达边界。作品风格注重情感张力与视觉美学的统一，致力于用镜头讲述打动人心的故事。'
 
@@ -36,45 +34,62 @@ export default function AboutSection() {
           transition={{ duration: 0.6 }}
           className="text-2xl font-light mb-12 text-gray-800"
         >
-          简介(Header / Intro)<span className="text-red-600">*</span>
+          张泽龙<span className="text-red-600">*</span>
         </motion.h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-          {/* 左侧: 个人肖像图片 */}
+        {/* 上部：左图 + 右图 */}
+        <div className="grid grid-cols-2 gap-4 lg:gap-8 mb-10">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex items-center justify-center"
+            transition={{ duration: 1 }}
+            className="rounded-xl overflow-hidden shadow-xl"
           >
-            <div className="w-full aspect-[4/5] max-w-lg overflow-hidden rounded-xl shadow-2xl">
-              <img
-                src="/covers/web/DSC02125.JPG"
-                alt="张泽龙"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <img
+              src="/covers/web/DSC02125.JPG"
+              alt=""
+              className="w-full h-auto object-cover"
+              loading="lazy"
+            />
           </motion.div>
-
-          {/* 右侧: 个人简介信息 */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="space-y-6 flex flex-col justify-center"
+            transition={{ duration: 1, delay: 0.15 }}
+            className="rounded-xl overflow-hidden shadow-xl"
           >
-            <h3 className="text-2xl font-light text-gray-800">张泽龙</h3>
+            <img
+              src="/covers/web/首页右侧照片.JPG"
+              alt=""
+              className="w-full h-auto object-cover"
+              loading="lazy"
+            />
+          </motion.div>
+        </div>
+
+        {/* 下部：文字信息 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="max-w-3xl space-y-8"
+        >
+          <div>
+            <h3 className="text-lg font-medium text-gray-800 mb-3">个人简介</h3>
             <p className="text-gray-600 leading-relaxed text-base">{bio}</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="p-4 rounded-lg bg-gray-50 border border-gray-100">
               <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">教育背景</p>
-              <p className="text-gray-800 font-medium">{profile.education}</p>
+              <p className="text-gray-800 font-medium">中央民族大学 新闻与传播学院 硕士研究生</p>
             </div>
             <div className="p-4 rounded-lg bg-gray-50 border border-gray-100">
               <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">联系方式</p>
               <p className="text-gray-800 font-medium">13530752639 / zzl135307（微信）</p>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

@@ -97,16 +97,16 @@ function IntroView({ topic, onClick, onBack }: {
       >
         <div className="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 1, delay: 0.1 }}
             className="w-full lg:w-[42%] flex-shrink-0 flex items-center"
           >
-            <div className="w-full overflow-hidden rounded-lg shadow-2xl shadow-black/50">
-              <img src={topic.introImage} alt="" className="w-full h-auto object-contain" />
+            <div className="overflow-hidden shadow-2xl shadow-black/50 w-full">
+              <img src={topic.introImage} alt="" className="w-full max-h-[60vh] lg:max-h-none object-contain" />
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-full lg:w-[58%] pt-2"
+            transition={{ duration: 1, delay: 0.2 }}
+            className="w-full lg:w-[58%] flex flex-col justify-center pt-2"
           >
             <h2 className="text-xl md:text-2xl font-bold text-white tracking-wide mb-5">{topic.introTitle}</h2>
             <p className="text-gray-400 leading-loose text-sm md:text-base">{topic.introText}</p>

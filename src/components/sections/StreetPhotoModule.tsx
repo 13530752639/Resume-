@@ -56,7 +56,7 @@ function TopicSelector({ onSelect, onBack, bgImage }: {
 }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.35 }}
       className="absolute inset-0 flex flex-col"
     >
       <div className="absolute inset-0">
@@ -76,7 +76,7 @@ function TopicSelector({ onSelect, onBack, bgImage }: {
               transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}
               whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
               onClick={() => onSelect(topic)}
-              className="px-10 py-3 rounded-full bg-amber-400/90 hover:bg-amber-400 text-black font-medium
+              className="px-10 py-3 rounded-full bg-amber-100/90 hover:bg-amber-200 text-amber-900 font-medium
                          transition-all shadow-lg backdrop-blur-sm text-lg">
               {topic.title}
             </motion.button>
@@ -149,16 +149,16 @@ function IntroView({ topic, onClick, onBack }: {
       >
         <div className="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 1, delay: 0.1 }}
             className="w-full lg:w-[42%] flex-shrink-0 flex items-center"
           >
-            <div className="w-full overflow-hidden rounded-lg shadow-2xl shadow-black/50">
-              <img src={topic.introImage} alt="" className="w-full h-auto object-contain" />
+            <div className="overflow-hidden shadow-2xl shadow-black/50 w-full">
+              <img src={topic.introImage} alt="" className="w-full max-h-[60vh] lg:max-h-none object-contain" />
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-full lg:w-[58%] pt-2"
+            transition={{ duration: 1, delay: 0.2 }}
+            className="w-full lg:w-[58%] flex flex-col justify-center pt-2"
           >
             <h2 className="text-xl md:text-2xl font-bold text-white tracking-wide mb-5">{topic.introTitle}</h2>
             <p className="text-gray-400 leading-loose text-sm md:text-base">{topic.introText}</p>
@@ -177,7 +177,7 @@ function GalleryView({ topic, onBack }: {
 }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.35 }}
       className="absolute inset-0 bg-black overflow-y-auto"
     >
       {/* 返回按钮 — absolute 定位，独立于任何 click handler */}
