@@ -34,46 +34,52 @@ export default function AboutSection() {
           transition={{ duration: 0.6 }}
           className="text-2xl font-light mb-12 text-gray-800"
         >
-          张泽龙<span className="text-red-600">*</span>
+          简介<span className="text-red-600">/</span>Header<span className="text-red-600">/</span>Intro<span className="text-red-600">*</span>
         </motion.h2>
 
-        {/* 上部：左图 + 右图 */}
-        <div className="grid grid-cols-2 gap-4 lg:gap-8 mb-10">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1 }}
-            className="rounded-xl overflow-hidden shadow-xl"
-          >
-            <img
-              src="/covers/web/DSC02125.JPG"
-              alt=""
-              className="w-full h-auto object-cover"
-              loading="lazy"
-            />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.15 }}
-            className="rounded-xl overflow-hidden shadow-xl"
-          >
-            <img
-              src="/covers/web/首页右侧照片.JPG"
-              alt=""
-              className="w-full h-auto object-cover"
-              loading="lazy"
-            />
-          </motion.div>
+        {/* 上部：左图 + 右图 — 缩小比例、居中 */}
+        <div className="flex justify-center mb-8">
+          <div className="grid grid-cols-2 gap-6 lg:gap-10 max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="overflow-hidden rounded-lg shadow-lg"
+            >
+              <img
+                src="/covers/web/DSC02125_sm.jpg"
+                alt=""
+                className="w-full h-auto"
+                loading="eager"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="overflow-hidden rounded-lg shadow-lg"
+            >
+              <img
+                src="/covers/web/首页右侧照片_sm.jpg"
+                alt=""
+                className="w-full h-auto"
+                loading="eager"
+              />
+            </motion.div>
+          </div>
         </div>
 
-        {/* 下部：文字信息 */}
+        {/* 下部：文字信息 — 含姓名张泽龙 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="max-w-3xl space-y-8"
+          className="max-w-3xl mx-auto space-y-8"
         >
+          <div className="text-center mb-2">
+            <h2 className="text-2xl font-medium text-gray-800 tracking-wide">张泽龙</h2>
+          </div>
+
           <div>
             <h3 className="text-lg font-medium text-gray-800 mb-3">个人简介</h3>
             <p className="text-gray-600 leading-relaxed text-base">{bio}</p>
