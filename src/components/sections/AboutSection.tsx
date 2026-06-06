@@ -38,56 +38,58 @@ export default function AboutSection() {
           简介<span className="text-red-600">/</span>Header<span className="text-red-600">/</span>Intro<span className="text-red-600">*</span>
         </motion.h2>
 
-        {/* 主内容：左(肖像) + 右(文字) — 居中排版 */}
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-[374px_1fr] gap-10 md:gap-12 items-center">
-          {/* ── 左侧：竖版肖像 ── */}
+        {/* 主内容：左(16:9大图) + 右(圆头像+姓名+文字) */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-16 items-start">
+          {/* ── 左侧：16:9 横幅大图 ── */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col items-center md:items-start"
+            className="relative"
+            style={{
+              boxShadow: '0 20px 60px -15px rgba(0,0,0,0.18), 0 4px 12px -4px rgba(0,0,0,0.06)'
+            }}
           >
-            <div
-              className="overflow-hidden rounded-xl w-full max-w-[317px] mx-auto md:mx-0"
-              style={{
-                boxShadow: '0 16px 48px -12px rgba(0,0,0,0.16), 0 4px 12px -4px rgba(0,0,0,0.06)',
-                aspectRatio: '3/4',
-              }}
-            >
+            <img
+              src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/web/DSC02125_sm.jpg"
+              alt=""
+              className="w-full h-auto rounded-xl object-cover"
+              loading="eager"
+            />
+          </motion.div>
+
+          {/* ── 右侧：圆形头像 + 姓名 + 文字信息 ── */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            className="flex flex-col items-center lg:items-start"
+          >
+            {/* 圆形头像 — 裁剪头部区域 */}
+            <div className="w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden shadow-lg flex-shrink-0">
               <img
-                src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/web/首页右侧照片_sm.jpg"
+                src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/compressed/person.jpg"
                 alt="张泽龙"
                 className="w-full h-full object-cover object-top"
                 loading="eager"
               />
             </div>
-            <p className="mt-5 text-sm text-gray-400 italic text-center md:text-left">
-              Film Director &nbsp;·&nbsp; Visual Storyteller
-            </p>
-          </motion.div>
 
-          {/* ── 右侧：姓名 + 文字信息 ── */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="flex flex-col gap-6"
-          >
             {/* 姓名 */}
-            <h3 className="text-3xl font-medium text-gray-900 tracking-wide">张泽龙</h3>
+            <h3 className="text-2xl font-medium text-gray-900 tracking-wide mt-5 mb-4">张泽龙</h3>
 
-            {/* 文字1 — 个人简介 */}
-            <p className="text-gray-600 leading-relaxed text-lg">{bio}</p>
+            {/* 个人简介 */}
+            <p className="text-gray-600 leading-relaxed text-base">{bio}</p>
 
-            {/* 文字2 — 教育背景 / 联系方式 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-3">
-              <div className="p-6 rounded-xl bg-gray-50 border border-gray-100">
-                <p className="text-sm text-gray-400 uppercase tracking-wider mb-3">教育背景</p>
-                <p className="text-gray-800 font-medium text-base leading-relaxed">中央民族大学 新闻与传播学院 硕士研究生</p>
+            {/* 教育背景 / 联系方式 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mt-6">
+              <div className="p-5 rounded-xl bg-gray-50 border border-gray-100">
+                <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">教育背景</p>
+                <p className="text-gray-800 font-medium text-sm leading-relaxed">中央民族大学 新闻与传播学院 硕士研究生</p>
               </div>
-              <div className="p-6 rounded-xl bg-gray-50 border border-gray-100">
-                <p className="text-sm text-gray-400 uppercase tracking-wider mb-3">联系方式</p>
-                <p className="text-gray-800 font-medium text-base leading-relaxed">13530752639 / zzl135307（微信）</p>
+              <div className="p-5 rounded-xl bg-gray-50 border border-gray-100">
+                <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">联系方式</p>
+                <p className="text-gray-800 font-medium text-sm leading-relaxed">13530752639 / zzl135307（微信）</p>
               </div>
             </div>
           </motion.div>
