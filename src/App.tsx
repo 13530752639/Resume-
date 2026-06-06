@@ -1,10 +1,16 @@
+import { lazy, Suspense } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import useAppStore from './store/useAppStore'
 import HomeSection from './components/sections/HomeSection'
-import AboutSection from './components/sections/AboutSection'
-import WorksCategorySection from './components/sections/WorksCategorySection'
-import WorkDetailSection from './components/sections/WorkDetailSection'
-import AcademicSection from './components/sections/AcademicSection'
+
+const AboutSection = lazy(() => import('./components/sections/AboutSection'))
+const WorksCategorySection = lazy(() => import('./components/sections/WorksCategorySection'))
+const WorkDetailSection = lazy(() => import('./components/sections/WorkDetailSection'))
+const AcademicSection = lazy(() => import('./components/sections/AcademicSection'))
+
+const LoadingFallback = () => (
+  <div className="min-h-screen flex items-center justify-center bg-cinema-black" />
+)
 
 const pageVariants = {
   initial: {
@@ -59,7 +65,9 @@ export default function App() {
           variants={pageVariants}
           className="min-h-screen"
         >
-          {renderPage()}
+          <Suspense fallback={<LoadingFallback />}>
+            {renderPage()}
+          </Suspense>
         </motion.div>
       </AnimatePresence>
     </div>
