@@ -4,6 +4,7 @@ import { ArrowLeft, Play, Pause, Volume2, VolumeX, X } from 'lucide-react'
 import useAppStore from '../../store/useAppStore'
 import categoriesData from '../../data/categories.json'
 import StreetPhotoModule from './StreetPhotoModule'
+import PortraitPhotoModule from './PortraitPhotoModule'
 
 const videoCategories = [
   { id: 'aigc', title: 'AIGC影像', enTitle: 'AIGC' },
@@ -139,7 +140,7 @@ export default function WorksCategorySection() {
   }
 
   const fullscreenWorks = getFullscreenWorks()
-  const isFullscreen = (isMediaPage && !selectedSubCategory) || (!!selectedSubCategory && !(isPhotoPage && selectedSubCategory === 'street'))
+  const isFullscreen = (isMediaPage && !selectedSubCategory) || (!!selectedSubCategory && !(isPhotoPage && (selectedSubCategory === 'street' || selectedSubCategory === 'portrait')))
 
   // 滚动防抖切换
   const handleScrollSwitch = useCallback((deltaY: number) => {
@@ -158,10 +159,11 @@ export default function WorksCategorySection() {
   const titleInfo = getTitle()
 
   const isStreetPhoto = isPhotoPage && selectedSubCategory === 'street'
+  const isPortraitPhoto = isPhotoPage && selectedSubCategory === 'portrait'
 
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {!isFullscreen && !isStreetPhoto && (
+      {!isFullscreen && !isStreetPhoto && !isPortraitPhoto && (
         <div className="absolute inset-0">
           <img src={getBgImage()} alt="Background" className="w-full h-full object-cover" />
           <div className={`absolute inset-0 ${getBgOverlay()}`} />
@@ -185,9 +187,12 @@ export default function WorksCategorySection() {
           {isStreetPhoto && (
             <StreetPhotoModule key="street-photo" onBack={handleFullscreenBack} />
           )}
+          {isPortraitPhoto && (
+            <PortraitPhotoModule key="portrait-photo" onBack={handleFullscreenBack} />
+          )}
         </AnimatePresence>
 
-        {!isFullscreen && !isStreetPhoto && (
+        {!isFullscreen && !isStreetPhoto && !isPortraitPhoto && (
           <div className="flex items-center justify-between px-6 md:px-12 lg:px-16 py-6">
             <button
               onClick={handleBack}
@@ -216,8 +221,8 @@ export default function WorksCategorySection() {
           </div>
         )}
 
-        {!isFullscreen && !isStreetPhoto && (
-          <div className="flex-1 flex items-center">
+        {!isFullscreen && !isStreetPhoto && !isPortraitPhoto && (
+        <div className="flex-1 flex items-center">
             <motion.div
               key="categories"
               initial={{ opacity: 0, y: 30 }}
