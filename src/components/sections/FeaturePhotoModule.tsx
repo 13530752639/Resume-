@@ -37,7 +37,7 @@ function IntroView({ topic, onClick, onBack }: {
 }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 0.35 }}
+      transition={{ duration: 1 }}
       className="absolute inset-0 bg-black overflow-y-auto"
     >
       <button
@@ -52,12 +52,12 @@ function IntroView({ topic, onClick, onBack }: {
         className="min-h-screen flex items-center px-6 md:px-12 lg:px-20 py-16 lg:py-20 cursor-pointer"
         onClick={onClick}
       >
-        <div className="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-start gap-10 lg:gap-16">
+        <div className="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="w-full lg:w-[42%] flex-shrink-0"
+            className="w-full lg:w-[42%] flex-shrink-0 flex items-center"
           >
-            <div className="overflow-hidden shadow-2xl shadow-black/50 rounded-lg">
+            <div className="w-full overflow-hidden rounded-lg shadow-2xl shadow-black/50">
               <img src={topic.introImage} alt="" className="w-full h-auto object-contain" />
             </div>
           </motion.div>
@@ -116,7 +116,7 @@ function BookView({ topic, onBack }: {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 0.35 }}
+      transition={{ duration: 1 }}
       className="absolute inset-0 bg-[#1a1a1a] overflow-hidden flex flex-col"
     >
       {/* Top bar */}
@@ -135,6 +135,7 @@ function BookView({ topic, onBack }: {
         <div className="relative w-full max-w-6xl aspect-[1.6/1] flex items-center justify-center"
           style={{ perspective: '1800px' }}>
           {/* Left page */}
+          {currentPage > 0 && (
           <div className="absolute inset-y-0 left-0 w-1/2 flex items-center justify-center z-10"
             onClick={() => flipTo('prev')}
           >
@@ -149,12 +150,12 @@ function BookView({ topic, onBack }: {
                 transformStyle: 'preserve-3d',
               }}>
               <img
-                src={topic.images[Math.max(0, currentPage - 1)] || topic.images[0]}
+                src={topic.images[currentPage - 1]}
                 alt=""
                 className="w-full h-full object-contain bg-[#2a2a2a] p-2"
                 onClick={(e) => {
                   e.stopPropagation()
-                  setLightboxIndex(Math.max(0, currentPage - 1))
+                  setLightboxIndex(currentPage - 1)
                 }}
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
@@ -162,6 +163,12 @@ function BookView({ topic, onBack }: {
               </div>
             </div>
           </div>
+          )}
+          {currentPage === 0 && (
+          <div className="absolute inset-y-0 left-0 w-1/2 flex items-center justify-center z-10 pointer-events-none">
+            <div className="w-full h-full max-w-[480px] overflow-hidden rounded-l-lg bg-[#1e1e1e]" />
+          </div>
+          )}
 
           {/* Right page */}
           <div className="absolute inset-y-0 right-0 w-1/2 flex items-center justify-center z-10"
@@ -193,7 +200,7 @@ function BookView({ topic, onBack }: {
           </div>
 
           {/* Spine */}
-          <div className="absolute inset-y-[5%] left-1/2 w-[2px] bg-gradient-to-b from-amber-800/40 via-amber-600/20 to-amber-800/40 z-20 pointer-events-none" />
+          <div className="absolute inset-y-[5%] left-1/2 w-[1px] bg-white/20 z-20 pointer-events-none" />
         </div>
       </div>
 

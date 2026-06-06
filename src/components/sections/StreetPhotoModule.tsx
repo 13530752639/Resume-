@@ -56,7 +56,7 @@ function TopicSelector({ onSelect, onBack, bgImage }: {
 }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 0.35 }}
+      transition={{ duration: 1 }}
       className="absolute inset-0 flex flex-col"
     >
       <div className="absolute inset-0">
@@ -76,7 +76,7 @@ function TopicSelector({ onSelect, onBack, bgImage }: {
               transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}
               whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
               onClick={() => onSelect(topic)}
-              className="px-10 py-3 rounded-full bg-white/90 hover:bg-white text-black font-medium
+              className="px-10 py-3 rounded-full bg-amber-400/90 hover:bg-amber-400 text-black font-medium
                          transition-all shadow-lg backdrop-blur-sm text-lg">
               {topic.title}
             </motion.button>
@@ -94,7 +94,7 @@ function CoverView({ topic, onClick, onBack }: {
 }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 0.35 }}
+      transition={{ duration: 1 }}
       className="absolute inset-0 cursor-pointer"
       onClick={onClick}
     >
@@ -130,7 +130,7 @@ function IntroView({ topic, onClick, onBack }: {
 }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 0.35 }}
+      transition={{ duration: 1 }}
       className="absolute inset-0 bg-black overflow-y-auto"
     >
       {/* 返回按钮 — 独立于内容区，仅自己 stopPropagation */}
@@ -147,12 +147,12 @@ function IntroView({ topic, onClick, onBack }: {
         className="min-h-screen flex items-center px-6 md:px-12 lg:px-20 py-16 lg:py-20 cursor-pointer"
         onClick={onClick}
       >
-        <div className="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-start gap-10 lg:gap-16">
+        <div className="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="w-full lg:w-[42%] flex-shrink-0"
+            className="w-full lg:w-[42%] flex-shrink-0 flex items-center"
           >
-            <div className="overflow-hidden shadow-2xl shadow-black/50">
+            <div className="w-full overflow-hidden rounded-lg shadow-2xl shadow-black/50">
               <img src={topic.introImage} alt="" className="w-full h-auto object-contain" />
             </div>
           </motion.div>
@@ -177,7 +177,7 @@ function GalleryView({ topic, onBack }: {
 }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 0.35 }}
+      transition={{ duration: 1 }}
       className="absolute inset-0 bg-black overflow-y-auto"
     >
       {/* 返回按钮 — absolute 定位，独立于任何 click handler */}
