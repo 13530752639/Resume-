@@ -9,8 +9,7 @@ interface StreetPhotoModuleProps {
   onBack: () => void
 }
 
-// URL 编码中文文件名，确保跨环境兼容
-const BG_IMAGE = encodeURI('/covers/web/PNG/封面_副本.png')
+const BG_IMAGE = '/covers/web/PNG/street-cover.png'
 
 export default function StreetPhotoModule({ onBack }: StreetPhotoModuleProps) {
   const [level, setLevel] = useState<Level>(0)
