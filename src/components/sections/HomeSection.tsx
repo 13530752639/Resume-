@@ -15,7 +15,7 @@ export default function HomeSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeInOut' }}
-          src="/covers/web/Webp/封面.jpg"
+          src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/compressed/封面.jpg"
           alt="Background"
           className="w-full h-full object-cover"
         />

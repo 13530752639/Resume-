@@ -104,10 +104,11 @@ export default function WorksCategorySection() {
     ]
   }
 
+  const R2_URL = 'https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev'
   const getBgImage = () => {
-    if (isVideoPage) return '/covers/web/Webp/video-bg.jpg'
-    if (isPhotoPage) return '/covers/web/Webp/photo-bg.jpg'
-    return '/covers/web/Webp/video-bg.jpg'
+    if (isVideoPage) return `${R2_URL}/covers/Webp/video-bg.jpg`
+    if (isPhotoPage) return `${R2_URL}/covers/Webp/photo-bg.jpg`
+    return `${R2_URL}/covers/Webp/video-bg.jpg`
   }
 
   const getBgOverlay = () => {

@@ -50,7 +50,7 @@ export default function AboutSection() {
             }}
           >
             <img
-              src="/covers/web/DSC02125_sm.jpg"
+              src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/web/DSC02125_sm.jpg"
               alt=""
               className="w-full h-auto rounded-xl"
               loading="eager"
@@ -68,7 +68,7 @@ export default function AboutSection() {
             <div className="mb-6">
               <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg mx-auto lg:mx-0">
                 <img
-                  src="/covers/web/首页右侧照片_sm.jpg"
+                  src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/web/首页右侧照片_sm.jpg"
                   alt="张泽龙"
                   className="w-full h-full object-cover"
                   loading="eager"

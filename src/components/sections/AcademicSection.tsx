@@ -2,23 +2,25 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import useAppStore from '../../store/useAppStore'
 
+const R2_URL = 'https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev'
+
 const papers = [
   {
     id: 'nca',
     title: '《INTERPRETING CHENG DIEYI FROM GENDER PERFORMATIVITY》',
-    image: '/academic/NCA邀请函.jpg',
+    image: `${R2_URL}/academic/NCA邀请函.jpg`,
     description: '本文依托巴特勒性别操演理论，结合都岚岚提出的戏剧、仪式、语言三维分析框架，探究《霸王别姬》程蝶衣女性化身份形成与悲剧成因。论文入选新传四大会议"NCA"。',
   },
   {
     id: 'tiaozhanbei',
     title: '《潮汕地区高生育率的文化密码》',
-    image: '/academic/tiaozhanbei.jpg',
+    image: `${R2_URL}/academic/tiaozhanbei.jpg`,
     description: '历时2年，作为负责人在潮汕地区实地走访103个村，访谈318人，发放6000余份问卷。发表论文2篇，形成全国人大代表议案。',
   },
   {
     id: 'qinghua',
     title: '《中非命运共同体视域下非洲媒体的认同路径与区域断裂研究》',
-    image: '/academic/清华论坛.jpg',
+    image: `${R2_URL}/academic/清华论坛.jpg`,
     description: '该文以2000-2025年非洲五大区域12家媒体两万余条新闻数据为样本，借助量化分析、多重中介与K-means聚类，探究非洲媒体对中非命运共同体的差异化认同逻辑。论文评议为清华论坛《全球传媒学刊》分论坛"最佳论文"。',
   },
 ]

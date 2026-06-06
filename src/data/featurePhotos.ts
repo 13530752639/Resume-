@@ -9,7 +9,8 @@ export interface FeatureTopic {
   images: string[]
 }
 
-const BASE = '/images/feature'
+const R2_URL = 'https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev'
+const BASE = R2_URL + '/images/feature'
 
 const featureTopic: FeatureTopic = {
   id: 'food',
