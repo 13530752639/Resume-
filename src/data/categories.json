@@ -231,14 +231,6 @@
       "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/media/《汕大街拍》.mp4"
     },
     {
-      "id": "media-003",
-      "title": "潮州韩韵",
-      "titleEn": "Chaozhou Han Rhythm",
-      "category": "自媒体作品",
-      "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Chaozhou+culture+traditional+architecture+ancient+streets+teahouse+warm+sunlight+cinematic+depth+film+quality&image_size=landscape_16_9",
-      "description": "潮州人文风情短片，展现古城韵味"
-    },
-    {
       "id": "media-004",
       "title": "汕头南澳旅行vlog",
       "titleEn": "Nan'ao Island Travel Vlog",
