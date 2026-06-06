@@ -39,19 +39,19 @@ export default function AboutSection() {
         </motion.h2>
 
         {/* 主内容：左(图A+姓名+文字) + 右(竖版大肖像，视觉重心) */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-10 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6 lg:gap-8 items-start">
           {/* ── 左侧：16:9主图 + 姓名 + 文字信息 ── */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col gap-6"
+            className="flex flex-col gap-5"
           >
             {/* 图A — 16:9 横幅图（适中尺寸） */}
             <div
-              className="relative overflow-hidden rounded-xl max-w-lg"
+              className="relative overflow-hidden rounded-xl max-w-md"
               style={{
-                boxShadow: '0 16px 48px -12px rgba(0,0,0,0.15), 0 4px 10px -3px rgba(0,0,0,0.05)'
+                boxShadow: '0 12px 36px -10px rgba(0,0,0,0.14), 0 4px 8px -3px rgba(0,0,0,0.04)'
               }}
             >
               <img
@@ -81,7 +81,7 @@ export default function AboutSection() {
             </div>
           </motion.div>
 
-          {/* ── 右侧：竖版大肖像（视觉重心，占满高度）── */}
+          {/* ── 右侧：竖版肖像（适中尺寸，视觉重心）── */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -89,9 +89,9 @@ export default function AboutSection() {
             className="relative flex flex-col lg:sticky lg:top-20"
           >
             <div
-              className="overflow-hidden rounded-2xl flex-shrink-0"
+              className="overflow-hidden rounded-xl flex-shrink-0"
               style={{
-                boxShadow: '0 24px 72px -16px rgba(0,0,0,0.22), 0 6px 18px -4px rgba(0,0,0,0.08)',
+                boxShadow: '0 16px 48px -12px rgba(0,0,0,0.16), 0 4px 12px -4px rgba(0,0,0,0.06)',
                 aspectRatio: '3/4',
               }}
             >
