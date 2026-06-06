@@ -39,7 +39,7 @@ export default function AboutSection() {
         </motion.h2>
 
         {/* 主内容：左(肖像) + 右(文字) — 居中排版 */}
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-[312px_1fr] gap-10 md:gap-12 items-center">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-[374px_1fr] gap-10 md:gap-12 items-center">
           {/* ── 左侧：竖版肖像 ── */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -48,7 +48,7 @@ export default function AboutSection() {
             className="flex flex-col items-center md:items-start"
           >
             <div
-              className="overflow-hidden rounded-xl w-full max-w-[264px] mx-auto md:mx-0"
+              className="overflow-hidden rounded-xl w-full max-w-[317px] mx-auto md:mx-0"
               style={{
                 boxShadow: '0 16px 48px -12px rgba(0,0,0,0.16), 0 4px 12px -4px rgba(0,0,0,0.06)',
                 aspectRatio: '3/4',
