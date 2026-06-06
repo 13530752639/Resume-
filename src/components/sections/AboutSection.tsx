@@ -70,7 +70,7 @@ export default function AboutSection() {
               <img
                 src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/compressed/person.jpg"
                 alt="张泽龙"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover object-[35%_15%]"
                 loading="eager"
               />
             </div>
