@@ -39,7 +39,7 @@ export default function AboutSection() {
         </motion.h2>
 
         {/* 主内容：左(肖像) + 右(文字) — 居中排版 */}
-        <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-[260px_1fr] gap-8 md:gap-10 items-center">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-[312px_1fr] gap-10 md:gap-12 items-center">
           {/* ── 左侧：竖版肖像 ── */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -48,7 +48,7 @@ export default function AboutSection() {
             className="flex flex-col items-center md:items-start"
           >
             <div
-              className="overflow-hidden rounded-xl w-full max-w-[220px] mx-auto md:mx-0"
+              className="overflow-hidden rounded-xl w-full max-w-[264px] mx-auto md:mx-0"
               style={{
                 boxShadow: '0 16px 48px -12px rgba(0,0,0,0.16), 0 4px 12px -4px rgba(0,0,0,0.06)',
                 aspectRatio: '3/4',
@@ -61,7 +61,7 @@ export default function AboutSection() {
                 loading="eager"
               />
             </div>
-            <p className="mt-4 text-xs text-gray-400 italic text-center md:text-left">
+            <p className="mt-5 text-sm text-gray-400 italic text-center md:text-left">
               Film Director &nbsp;·&nbsp; Visual Storyteller
             </p>
           </motion.div>
@@ -71,23 +71,23 @@ export default function AboutSection() {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="flex flex-col gap-5"
+            className="flex flex-col gap-6"
           >
             {/* 姓名 */}
-            <h3 className="text-2xl font-medium text-gray-900 tracking-wide">张泽龙</h3>
+            <h3 className="text-3xl font-medium text-gray-900 tracking-wide">张泽龙</h3>
 
             {/* 文字1 — 个人简介 */}
-            <p className="text-gray-600 leading-relaxed text-base">{bio}</p>
+            <p className="text-gray-600 leading-relaxed text-lg">{bio}</p>
 
             {/* 文字2 — 教育背景 / 联系方式 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="p-5 rounded-xl bg-gray-50 border border-gray-100">
-                <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">教育背景</p>
-                <p className="text-gray-800 font-medium text-sm leading-relaxed">中央民族大学 新闻与传播学院 硕士研究生</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-3">
+              <div className="p-6 rounded-xl bg-gray-50 border border-gray-100">
+                <p className="text-sm text-gray-400 uppercase tracking-wider mb-3">教育背景</p>
+                <p className="text-gray-800 font-medium text-base leading-relaxed">中央民族大学 新闻与传播学院 硕士研究生</p>
               </div>
-              <div className="p-5 rounded-xl bg-gray-50 border border-gray-100">
-                <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">联系方式</p>
-                <p className="text-gray-800 font-medium text-sm leading-relaxed">13530752639 / zzl135307（微信）</p>
+              <div className="p-6 rounded-xl bg-gray-50 border border-gray-100">
+                <p className="text-sm text-gray-400 uppercase tracking-wider mb-3">联系方式</p>
+                <p className="text-gray-800 font-medium text-base leading-relaxed">13530752639 / zzl135307（微信）</p>
               </div>
             </div>
           </motion.div>
