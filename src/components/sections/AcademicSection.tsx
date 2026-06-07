@@ -20,7 +20,7 @@ const papers = [
   {
     id: 'qinghua',
     title: '《中非命运共同体视域下非洲媒体的认同路径与区域断裂研究》',
-    image: `${R2_URL}/academic/清华论坛.jpg`,
+    image: '/academic/award-qinghua.jpg',
     description: '该文以2000-2025年非洲五大区域12家媒体两万余条新闻数据为样本，借助量化分析、多重中介与K-means聚类，探究非洲媒体对中非命运共同体的差异化认同逻辑。论文评议为清华论坛《全球传媒学刊》分论坛"最佳论文"。',
   },
 ]
