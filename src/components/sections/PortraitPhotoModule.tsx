@@ -42,11 +42,11 @@ function CoverView({ topic, onClick, onBack }: {
 }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.35 }}
       className="absolute inset-0 cursor-pointer"
       onClick={onClick}
     >
-      <img src={topic.coverImage} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.7 }} />
+      <img src={topic.coverImage} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.7 }} decoding="async" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
       {/* 返回按钮 */}
@@ -78,7 +78,7 @@ function IntroView({ topic, onClick, onBack }: {
 }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.35 }}
       className="absolute inset-0 bg-black overflow-y-auto"
     >
       {/* 返回按钮 */}
@@ -97,15 +97,15 @@ function IntroView({ topic, onClick, onBack }: {
       >
         <div className="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="w-full lg:w-[42%] flex-shrink-0 flex items-center"
           >
             <div className="overflow-hidden shadow-2xl shadow-black/50 w-full">
-              <img src={topic.introImage} alt="" className="w-full max-h-[60vh] lg:max-h-none object-contain" />
+              <img src={topic.introImage} alt="" className="w-full max-h-[60vh] lg:max-h-none object-contain" decoding="async" />
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             className="w-full lg:w-[58%] flex flex-col justify-center pt-2"
           >
             <h2 className="text-xl md:text-2xl font-bold text-white tracking-wide mb-5">{topic.introTitle}</h2>
@@ -125,7 +125,7 @@ function GalleryView({ topic, onBack }: {
 }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.35 }}
       className="absolute inset-0 bg-black overflow-y-auto"
     >
       {/* 返回按钮 */}
@@ -205,7 +205,7 @@ function MasonryImage({ src, index }: { src: string; index: number }) {
         {!inView ? (
           <div className="animate-pulse bg-white/[0.04]" style={{ paddingTop: '75%' }} />
         ) : (
-          <img src={src} alt={`${index + 1}`} loading="lazy" onLoad={() => setLoaded(true)}
+          <img src={src} alt={`${index + 1}`} loading="lazy" decoding="async" onLoad={() => setLoaded(true)}
             className={`w-full h-auto block transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
           />
         )}

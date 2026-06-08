@@ -112,6 +112,7 @@ export default function AcademicSection() {
                     src={paper.image}
                     alt={paper.title}
                     className="w-full h-auto max-h-[60vh] object-contain bg-gray-900"
+                    decoding="async"
                   />
                 </div>
               </div>

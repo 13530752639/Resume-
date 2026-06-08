@@ -428,7 +428,7 @@ function FullscreenPlayer({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.35 }}
           className="absolute inset-0"
         >
           {isVideo && work.videoUrl ? (
@@ -438,7 +438,7 @@ function FullscreenPlayer({
               autoPlay
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
               className="absolute inset-0 w-full h-full object-cover"
               onError={(e) => {
                 const target = e.currentTarget
@@ -455,6 +455,7 @@ function FullscreenPlayer({
               src={work.thumbnail}
               alt={work.title}
               className="absolute inset-0 w-full h-full object-cover"
+              decoding="async"
             />
           )}
         </motion.div>
