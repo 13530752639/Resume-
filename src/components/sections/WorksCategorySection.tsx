@@ -303,6 +303,7 @@ function FullscreenPlayer({
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [showControls, setShowControls] = useState(true)
+  const [buffering, setBuffering] = useState(false)
   const controlsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const work = works[activeIndex]
@@ -316,15 +317,21 @@ function FullscreenPlayer({
     const onMeta = () => setDuration(video.duration)
     const onPlay = () => setPlaying(true)
     const onPause = () => setPlaying(false)
+    const onWaiting = () => setBuffering(true)
+    const onCanPlay = () => setBuffering(false)
     video.addEventListener('timeupdate', onTime)
     video.addEventListener('loadedmetadata', onMeta)
     video.addEventListener('play', onPlay)
     video.addEventListener('pause', onPause)
+    video.addEventListener('waiting', onWaiting)
+    video.addEventListener('canplay', onCanPlay)
     return () => {
       video.removeEventListener('timeupdate', onTime)
       video.removeEventListener('loadedmetadata', onMeta)
       video.removeEventListener('play', onPlay)
       video.removeEventListener('pause', onPause)
+      video.removeEventListener('waiting', onWaiting)
+      video.removeEventListener('canplay', onCanPlay)
     }
   }, [activeIndex])
 
@@ -555,7 +562,7 @@ function FullscreenPlayer({
           </button>
 
           {/* 中央播放/暂停按钮 */}
-          {!playing && (
+          {!playing && !buffering && (
             <motion.button
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -564,6 +571,14 @@ function FullscreenPlayer({
             >
               <Play className="w-10 h-10 text-white ml-1" fill="white" />
             </motion.button>
+          )}
+
+          {/* 缓冲加载指示器 */}
+          {buffering && (
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-3">
+              <div className="w-10 h-10 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <span className="text-white/60 text-xs">加载中...</span>
+            </div>
           )}
 
           {/* 底部控制栏 */}

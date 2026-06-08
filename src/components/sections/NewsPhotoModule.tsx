@@ -181,6 +181,7 @@ function MasonryGrid({ images }: { images: string[] }) {
 
 function MasonryImage({ src, index }: { src: string; index: number }) {
   const [loaded, setLoaded] = useState(false)
+  const [error, setError] = useState(false)
   const [inView, setInView] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -200,8 +201,14 @@ function MasonryImage({ src, index }: { src: string; index: number }) {
       <div className="overflow-hidden rounded bg-white/[0.04]">
         {!inView ? (
           <div className="animate-pulse bg-white/[0.04]" style={{ paddingTop: '75%' }} />
+        ) : error ? (
+          <div className="flex items-center justify-center bg-white/[0.02]" style={{ paddingTop: '56%', position: 'relative' }}>
+            <span className="absolute inset-0 flex items-center justify-center text-white/25 text-xs">图片加载失败</span>
+          </div>
         ) : (
-          <img src={src} alt={`${index + 1}`} loading="lazy" onLoad={() => setLoaded(true)}
+          <img src={src} alt={`${index + 1}`} loading="lazy"
+            onLoad={() => setLoaded(true)}
+            onError={() => { setLoaded(true); setError(true) }}
             className={`w-full h-auto block transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
           />
         )}

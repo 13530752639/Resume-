@@ -3,26 +3,6 @@
     "aigc": [
       {
         "id": "aigc-001",
-        "title": "天宫DISCO",
-        "titleEn": "Tiangong DISCO",
-        "category": "AIGC影像",
-        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+AI+generated+space+station+dancing+astronauts+neon+lights+cosmic+atmosphere+film+quality&image_size=landscape_16_9",
-        "duration": "03:20",
-        "description": "AI生成动画短片，天宫空间站中的音乐派对",
-        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/aigc/天宫DISCO.mp4"
-      },
-      {
-        "id": "aigc-002",
-        "title": "夸父逐日2.0",
-        "titleEn": "Chasing the Sun 2.0",
-        "category": "AIGC影像",
-        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+mythological+scene+giant+chasing+the+sun+dramatic+skies+epic+lighting+motion+blur+film+quality&image_size=landscape_16_9",
-        "duration": "02:45",
-        "description": "以AI技术重述夸父逐日神话，传统与现代的碰撞",
-        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/aigc/古诗词夸父逐日.mp4"
-      },
-      {
-        "id": "aigc-003",
         "title": "何以为家",
         "titleEn": "What is Home",
         "category": "AIGC影像",
@@ -30,6 +10,26 @@
         "duration": "04:00",
         "description": "AIGC动画，探讨家的意义与归属感",
         "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/aigc/《何以为家》.mp4"
+      },
+      {
+        "id": "aigc-002",
+        "title": "天宫DISCO",
+        "titleEn": "Tiangong DISCO",
+        "category": "AIGC影像",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+AI+generated+space+station+dancing+astronauts+neon+lights+cosmic+atmosphere+film+quality&image_size=landscape_16_9",
+        "duration": "03:20",
+        "description": "Suno AI 生成歌曲，天宫空间站的音乐派对",
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/aigc/天宫DISCO.mp4"
+      },
+      {
+        "id": "aigc-003",
+        "title": "夸父逐日2.0",
+        "titleEn": "Chasing the Sun 2.0",
+        "category": "AIGC影像",
+        "thumbnail": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+mythological+scene+giant+chasing+the+sun+dramatic+skies+epic+lighting+motion+blur+film+quality&image_size=landscape_16_9",
+        "duration": "02:45",
+        "description": "以AI技术重述夸父逐日神话，传统与现代的碰撞",
+        "videoUrl": "https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/aigc/古诗词夸父逐日.mp4"
       },
       {
         "id": "aigc-004",

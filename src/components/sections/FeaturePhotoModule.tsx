@@ -138,6 +138,17 @@ function BookView({ topic, onBack }: {
               transition={{ duration: 0.35, ease: 'easeInOut' }}
               className="w-full h-full object-contain cursor-pointer"
               onClick={() => setLightboxIndex(currentPage)}
+              onError={(e) => {
+                const t = e.currentTarget
+                t.style.display = 'none'
+                const p = t.parentElement
+                if (p && !p.querySelector('.img-error-fallback')) {
+                  const d = document.createElement('div')
+                  d.className = 'img-error-fallback absolute inset-0 flex items-center justify-center text-white/25 text-sm'
+                  d.textContent = '图片加载失败'
+                  p.appendChild(d)
+                }
+              }}
             />
           </AnimatePresence>
 
