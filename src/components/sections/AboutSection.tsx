@@ -78,7 +78,7 @@ export default function AboutSection() {
             {/* 姓名 — 点击查看简历 */}
             <div className="flex items-baseline gap-2 mt-5 mb-4">
               <a
-                href="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/compressed/Resume.jpg"
+                href="/Resume.jpg"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-2xl font-medium text-gray-900 tracking-wide hover:text-blue-600 hover:underline transition-colors cursor-pointer inline-block"
