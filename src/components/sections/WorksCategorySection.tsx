@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Play, Pause, Volume2, VolumeX, X } from 'lucide-react'
 import useAppStore from '../../store/useAppStore'
+import { MEDIA_URL } from '../../config/media'
 import categoriesData from '../../data/categories.json'
 import StreetPhotoModule from './StreetPhotoModule'
 import PortraitPhotoModule from './PortraitPhotoModule'
@@ -104,11 +105,10 @@ export default function WorksCategorySection() {
     ]
   }
 
-  const R2_URL = 'https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev'
   const getBgImage = () => {
-    if (isVideoPage) return `${R2_URL}/covers/Webp/video-bg.jpg`
-    if (isPhotoPage) return `${R2_URL}/covers/Webp/photo-bg.jpg`
-    return `${R2_URL}/covers/Webp/video-bg.jpg`
+    if (isVideoPage) return `${MEDIA_URL}/covers/Webp/video-bg.jpg`
+    if (isPhotoPage) return `${MEDIA_URL}/covers/Webp/photo-bg.jpg`
+    return `${MEDIA_URL}/covers/Webp/video-bg.jpg`
   }
 
   const getBgOverlay = () => {
@@ -599,9 +599,11 @@ function FullscreenPlayer({
                     max={duration || 100}
                     value={currentTime}
                     onChange={handleSeek}
-                    className="w-full h-1 rounded-full appearance-none cursor-pointer bg-white/20 
-                      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
-                      [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-red-600 [&::-webkit-slider-thumb]:cursor-pointer"
+                    className="w-full h-1 rounded-full appearance-none cursor-pointer bg-white/20
+                      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4
+                      [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-red-600 [&::-webkit-slider-thumb]:cursor-pointer
+                      [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full
+                      [&::-moz-range-thumb]:bg-red-600 [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:cursor-pointer"
                     style={{
                       background: `linear-gradient(to right, #dc2626 ${progress}%, rgba(255,255,255,0.2) ${progress}%)`
                     }}

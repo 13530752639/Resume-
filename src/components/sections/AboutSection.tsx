@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Search } from 'lucide-react'
 import useAppStore from '../../store/useAppStore'
+import { MEDIA_URL } from '../../config/media'
 
 export default function AboutSection() {
   const { navigateTo } = useAppStore()
@@ -51,7 +52,7 @@ export default function AboutSection() {
             }}
           >
             <img
-              src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/web/DSC02125_sm.jpg"
+              src={`${MEDIA_URL}/covers/web/DSC02125_sm.jpg`}
               alt=""
               className="w-full h-auto rounded-xl object-cover"
               loading="eager"
@@ -68,7 +69,7 @@ export default function AboutSection() {
             {/* 圆形头像 — 裁剪头部区域 */}
             <div className="w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden shadow-lg flex-shrink-0">
               <img
-                src="https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/compressed/person.jpg"
+                src={`${MEDIA_URL}/covers/compressed/person.jpg`}
                 alt="张泽龙"
                 className="w-full h-full object-cover object-[35%_15%]"
                 loading="eager"

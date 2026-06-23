@@ -1,5 +1,7 @@
 /* ─── 新闻摄影 - 图片数据 ─── */
 
+import { MEDIA_URL } from '../config/media'
+
 export interface NewsSection {
   name: string
   images: string[]
@@ -16,8 +18,7 @@ export interface NewsTopic {
   sections: NewsSection[]
 }
 
-const R2_URL = 'https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev'
-const BASE = R2_URL + '/images/news'
+const BASE = MEDIA_URL + '/images/news'
 
 const newsTopic: NewsTopic = {
   id: 'stdx',

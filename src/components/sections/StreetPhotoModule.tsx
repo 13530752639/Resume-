@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
 import streetTopics, { type StreetTopic } from '../../data/streetPhotos'
+import { MEDIA_URL } from '../../config/media'
 
 type Level = 0 | 1 | 2 | 3
 
@@ -9,7 +10,7 @@ interface StreetPhotoModuleProps {
   onBack: () => void
 }
 
-const BG_IMAGE = 'https://pub-2983cdf1cba64ea6afdc17a670917f94.r2.dev/covers/compressed/street-cover.jpg'
+const BG_IMAGE = `${MEDIA_URL}/covers/compressed/street-cover.jpg`
 
 export default function StreetPhotoModule({ onBack }: StreetPhotoModuleProps) {
   const [level, setLevel] = useState<Level>(0)

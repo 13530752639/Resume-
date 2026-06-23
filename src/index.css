@@ -42,6 +42,12 @@ body {
   color: var(--color-cinema-black);
 }
 
+/* Firefox 滚动条 */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-cinema-gray) var(--color-cinema-dark);
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
