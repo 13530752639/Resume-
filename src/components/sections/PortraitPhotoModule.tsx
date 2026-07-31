@@ -1,7 +1,9 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
 import portraitTopic, { type PortraitTopic } from '../../data/portraitPhotos'
+import { optimizedPhotoSrcSet, optimizedPhotoUrl } from '../../config/photo'
+import PhotoMasonry from '../ui/PhotoMasonry'
 
 type Level = 1 | 2 | 3
 
@@ -46,7 +48,16 @@ function CoverView({ topic, onClick, onBack }: {
       className="absolute inset-0 cursor-pointer"
       onClick={onClick}
     >
-      <img src={topic.coverImage} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.7 }} decoding="async" />
+      <img
+        src={optimizedPhotoUrl(topic.coverImage, 1600)}
+        srcSet={optimizedPhotoSrcSet(topic.coverImage)}
+        sizes="100vw"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ opacity: 0.7 }}
+        decoding="async"
+        fetchPriority="high"
+      />
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
       {/* 返回按钮 */}
@@ -101,7 +112,14 @@ function IntroView({ topic, onClick, onBack }: {
             className="w-full lg:w-[42%] flex-shrink-0 flex items-center"
           >
             <div className="overflow-hidden shadow-2xl shadow-black/50 w-full">
-              <img src={topic.introImage} alt="" className="w-full max-h-[60vh] lg:max-h-none object-contain" decoding="async" />
+              <img
+                src={optimizedPhotoUrl(topic.introImage, 960)}
+                srcSet={optimizedPhotoSrcSet(topic.introImage)}
+                sizes="(min-width: 1024px) 42vw, 92vw"
+                alt=""
+                className="w-full max-h-[60vh] lg:max-h-none object-contain"
+                decoding="async"
+              />
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -164,58 +182,8 @@ function SectionBlock({ section, isLast }: { section: { name: string; images: st
           </h3>
         </div>
         <div className="md:w-[80%]">
-          <MasonryGrid images={section.images} />
+          <PhotoMasonry images={section.images} />
         </div>
-      </div>
-    </div>
-  )
-}
-
-/* ─── Masonry ─── */
-
-function MasonryGrid({ images }: { images: string[] }) {
-  return (
-    <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-3 space-y-3">
-      {images.map((src, i) => (
-        <MasonryImage key={src} src={src} index={i} />
-      ))}
-    </div>
-  )
-}
-
-function MasonryImage({ src, index }: { src: string; index: number }) {
-  const [loaded, setLoaded] = useState(false)
-  const [error, setError] = useState(false)
-  const [inView, setInView] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect() } },
-      { rootMargin: '300px' }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
-
-  return (
-    <div ref={ref} className="break-inside-avoid mb-3">
-      <div className="overflow-hidden rounded bg-white/[0.04]">
-        {!inView ? (
-          <div className="animate-pulse bg-white/[0.04]" style={{ paddingTop: '75%' }} />
-        ) : error ? (
-          <div className="flex items-center justify-center bg-white/[0.02]" style={{ paddingTop: '56%', position: 'relative' }}>
-            <span className="absolute inset-0 flex items-center justify-center text-white/25 text-xs">图片加载失败</span>
-          </div>
-        ) : (
-          <img src={src} alt={`${index + 1}`} loading="lazy" decoding="async"
-            onLoad={() => setLoaded(true)}
-            onError={() => { setLoaded(true); setError(true) }}
-            className={`w-full h-auto block transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-          />
-        )}
       </div>
     </div>
   )

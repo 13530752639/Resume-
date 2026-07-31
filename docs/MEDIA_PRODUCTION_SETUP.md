@@ -45,6 +45,29 @@ curl -sS -D - -o /dev/null -H 'Range: bytes=0-1023' \
 
 第二条命令应返回 `206`，并包含 `Content-Range` 和正确的 `Content-Type: video/mp4`。
 
+## 摄影图片优化
+
+摄影原图继续保存在 `images/`。网站瀑布流和摄影详情使用
+`images-optimized/{480,960,1600}/` 下的 WebP 响应式版本，浏览器根据
+`srcset` 和 `sizes` 自动选择合适尺寸。
+
+新增或替换摄影原图后执行：
+
+```bash
+npm run photos:optimize:dry
+npm run photos:optimize
+```
+
+脚本只生成缺失版本，不删除或覆盖原图。优化图片上传时会设置：
+
+```text
+Content-Type: image/webp
+Cache-Control: public, max-age=31536000, immutable
+```
+
+如果原图内容被同名覆盖，需要执行 `node scripts/optimize-photos.mjs --force`
+重新生成三个尺寸。
+
 ## 回退行为
 
 如果没有设置 `VITE_MEDIA_URL`，网站暂时回退到现有 `r2.dev` 地址，保证代码上线后仍能播放。自定义域生效后应立即设置生产环境变量并重新部署。

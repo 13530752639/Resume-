@@ -17,6 +17,7 @@ scripts/compress_local.sh
 scripts/delete_r2_videos.sh
 scripts/download_videos.sh
 scripts/fix_3videos.sh
+scripts/optimize-photos.mjs
 scripts/r2_cors.cjs
 scripts/upload_3fixed.cjs
 scripts/upload_compressed.py

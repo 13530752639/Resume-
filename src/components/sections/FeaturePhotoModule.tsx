@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import featureTopic, { type FeatureTopic } from '../../data/featurePhotos'
+import { optimizedPhotoSrcSet, optimizedPhotoUrl } from '../../config/photo'
 
 type Level = 1 | 2
 
@@ -58,7 +59,14 @@ function IntroView({ topic, onClick, onBack }: {
             className="w-full lg:w-[42%] flex-shrink-0 flex items-center"
           >
             <div className="overflow-hidden shadow-2xl shadow-black/50 rounded-lg w-full">
-              <img src={topic.introImage} alt="" className="w-full max-h-[60vh] lg:max-h-none object-contain" />
+              <img
+                src={optimizedPhotoUrl(topic.introImage, 960)}
+                srcSet={optimizedPhotoSrcSet(topic.introImage)}
+                sizes="(min-width: 1024px) 42vw, 92vw"
+                alt=""
+                className="w-full max-h-[60vh] lg:max-h-none object-contain"
+                decoding="async"
+              />
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -106,6 +114,17 @@ function BookView({ topic, onBack }: {
     return () => window.removeEventListener('keydown', handleKey)
   }, [goToPage])
 
+  useEffect(() => {
+    const adjacentIndexes = [currentPage - 1, currentPage + 1].filter(
+      index => index >= 0 && index < totalPages,
+    )
+
+    adjacentIndexes.forEach(index => {
+      const image = new Image()
+      image.src = optimizedPhotoUrl(topic.images[index], 1600)
+    })
+  }, [currentPage, topic.images, totalPages])
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
@@ -130,8 +149,11 @@ function BookView({ topic, onBack }: {
           <AnimatePresence mode="wait">
             <motion.img
               key={currentPage}
-              src={topic.images[currentPage]}
+              src={optimizedPhotoUrl(topic.images[currentPage], 960)}
+              srcSet={optimizedPhotoSrcSet(topic.images[currentPage])}
+              sizes="(min-width: 1280px) 1024px, 90vw"
               alt=""
+              decoding="async"
               initial={{ opacity: 0, x: isTransitioning ? 40 : 0, scale: 1.02 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: -40 }}
@@ -140,6 +162,12 @@ function BookView({ topic, onBack }: {
               onClick={() => setLightboxIndex(currentPage)}
               onError={(e) => {
                 const t = e.currentTarget
+                if (t.dataset.originalFallback !== 'true') {
+                  t.dataset.originalFallback = 'true'
+                  t.srcset = ''
+                  t.src = topic.images[currentPage]
+                  return
+                }
                 t.style.display = 'none'
                 const p = t.parentElement
                 if (p && !p.querySelector('.img-error-fallback')) {
@@ -235,10 +263,17 @@ function BookView({ topic, onBack }: {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.85, opacity: 0 }}
               transition={{ duration: 0.25 }}
-              src={topic.images[lightboxIndex]}
+              src={optimizedPhotoUrl(topic.images[lightboxIndex], 1600)}
               alt=""
+              decoding="async"
               className="max-w-[90vw] max-h-[85vh] object-contain select-none"
               onClick={(e) => e.stopPropagation()}
+              onError={event => {
+                const image = event.currentTarget
+                if (image.dataset.originalFallback === 'true') return
+                image.dataset.originalFallback = 'true'
+                image.src = topic.images[lightboxIndex]
+              }}
             />
             <button
               onClick={(e) => {
