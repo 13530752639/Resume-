@@ -1,0 +1,25 @@
+.git
+.vercel
+.env*
+node_modules
+dist
+
+# 本地视频素材和备份不参与前端部署
+videos_backup
+videos_compressed
+public/videos 2
+r2-local-test
+**/*.mp4
+
+# 本地维护脚本不影响 Vite 构建
+scripts/check_r2_sizes.py
+scripts/compress_local.sh
+scripts/delete_r2_videos.sh
+scripts/download_videos.sh
+scripts/fix_3videos.sh
+scripts/r2_cors.cjs
+scripts/upload_3fixed.cjs
+scripts/upload_compressed.py
+scripts/upload_compressed.sh
+scripts/upload_compressed_to_r2.sh
+scripts/video_pipeline.sh
