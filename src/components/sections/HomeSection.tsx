@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import useAppStore from '../../store/useAppStore'
-import { MEDIA_URL } from '../../config/media'
 
 export default function HomeSection() {
   const { navigateTo } = useAppStore()
@@ -16,9 +15,12 @@ export default function HomeSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeInOut' }}
-          src={`${MEDIA_URL}/covers/compressed/fengmian-new.jpg`}
-          alt="Background"
+          src="/covers/home.jpg"
+          alt="张泽龙影视导演作品集"
           className="w-full h-full object-cover"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>

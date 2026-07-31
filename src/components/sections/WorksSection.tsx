@@ -5,10 +5,10 @@ import useAppStore from '../../store/useAppStore'
 import { worksData } from '../../store/useAppStore'
 
 const categories = [
-  { id: 'aigc', title: 'AIGC短片', type: 'aigc' as const },
-  { id: 'documentary', title: '纪录片', type: 'aigc' as const },
-  { id: 'special', title: '专题片', type: 'aigc' as const },
-  { id: 'short-video', title: '短视频', type: 'aigc' as const }
+  { id: 'aigc', title: 'AIGC短片', type: 'video' as const },
+  { id: 'documentary', title: '纪录片', type: 'video' as const },
+  { id: 'special', title: '专题片', type: 'video' as const },
+  { id: 'short-video', title: '短视频', type: 'video' as const }
 ]
 
 export default function WorksSection() {
@@ -16,7 +16,7 @@ export default function WorksSection() {
   const [hoveredWork, setHoveredWork] = useState<string | null>(null)
 
   const handleBack = () => {
-    navigateTo('intro')
+    navigateTo('about')
   }
 
   const handleCategoryClick = (category: typeof categories[0]) => {
@@ -37,7 +37,7 @@ export default function WorksSection() {
       <div className="absolute inset-0 bg-cinema-black">
         <div className="absolute inset-0">
           <img
-            src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+film+set+with+professional+camera+equipment+dark+moody+lighting+movie+production+atmosphere+film+noir+aesthetic&image_size=landscape_16_9"
+            src="/covers/video-bg.jpg"
             alt="Background"
             className="w-full h-full object-cover opacity-20"
           />

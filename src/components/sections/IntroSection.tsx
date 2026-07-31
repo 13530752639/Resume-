@@ -11,7 +11,7 @@ export default function IntroSection() {
   const [editableBio, setEditableBio] = useState(profile.bio)
 
   const handleContinue = () => {
-    navigateTo('works')
+    navigateTo('video-works')
   }
 
   const handleSaveBio = () => {
@@ -45,7 +45,7 @@ export default function IntroSection() {
               
               <div className="relative h-full rounded-2xl overflow-hidden border-2 border-white/10">
                 <img
-                  src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Professional+film+director+portrait+cinematic+lighting+dramatic+shadows+studio+setting+confident+pose+dark+background+film+aesthetic+high+quality+photography&image_size=portrait_4_3"
+                  src="/covers/person.jpg"
                   alt={profile.name}
                   className="w-full h-full object-cover"
                 />

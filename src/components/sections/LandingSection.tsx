@@ -6,7 +6,7 @@ export default function LandingSection() {
   const { navigateTo } = useAppStore()
 
   const handleExplore = () => {
-    navigateTo('intro')
+    navigateTo('about')
   }
 
   return (

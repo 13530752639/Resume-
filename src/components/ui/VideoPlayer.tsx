@@ -28,8 +28,8 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [showControls, setShowControls] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
-
-  let hideControlsTimeout: NodeJS.Timeout
+  const [hasError, setHasError] = useState(false)
+  const hideControlsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const video = videoRef.current
@@ -48,12 +48,22 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
     const handleWaiting = () => setIsLoading(true)
     const handlePlaying = () => setIsLoading(false)
     const handleEnded = () => setIsPlaying(false)
+    const handlePlay = () => setIsPlaying(true)
+    const handlePause = () => setIsPlaying(false)
+    const handleError = () => {
+      setHasError(true)
+      setIsLoading(false)
+      setIsPlaying(false)
+    }
 
     video.addEventListener('timeupdate', handleTimeUpdate)
     video.addEventListener('loadedmetadata', handleLoadedMetadata)
     video.addEventListener('waiting', handleWaiting)
     video.addEventListener('playing', handlePlaying)
     video.addEventListener('ended', handleEnded)
+    video.addEventListener('play', handlePlay)
+    video.addEventListener('pause', handlePause)
+    video.addEventListener('error', handleError)
 
     return () => {
       video.removeEventListener('timeupdate', handleTimeUpdate)
@@ -61,15 +71,29 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
       video.removeEventListener('waiting', handleWaiting)
       video.removeEventListener('playing', handlePlaying)
       video.removeEventListener('ended', handleEnded)
+      video.removeEventListener('play', handlePlay)
+      video.removeEventListener('pause', handlePause)
+      video.removeEventListener('error', handleError)
     }
+  }, [])
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(document.fullscreenElement === containerRef.current)
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange)
   }, [])
 
   useEffect(() => {
     const handleMouseMove = () => {
       setShowControls(true)
-      clearTimeout(hideControlsTimeout)
+      if (hideControlsTimeoutRef.current) {
+        clearTimeout(hideControlsTimeoutRef.current)
+      }
       if (isPlaying) {
-        hideControlsTimeout = setTimeout(() => setShowControls(false), 3000)
+        hideControlsTimeoutRef.current = setTimeout(() => setShowControls(false), 3000)
       }
     }
 
@@ -84,7 +108,9 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
         container.removeEventListener('mousemove', handleMouseMove)
         container.removeEventListener('touchstart', handleMouseMove)
       }
-      clearTimeout(hideControlsTimeout)
+      if (hideControlsTimeoutRef.current) {
+        clearTimeout(hideControlsTimeoutRef.current)
+      }
     }
   }, [isPlaying])
 
@@ -95,9 +121,11 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
     if (isPlaying) {
       video.pause()
     } else {
-      video.play()
+      setHasError(false)
+      void video.play().catch(() => {
+        setIsPlaying(false)
+      })
     }
-    setIsPlaying(!isPlaying)
   }
 
   const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,6 +143,7 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
 
     const vol = parseFloat(e.target.value)
     video.volume = vol
+    video.muted = vol === 0
     setVolume(vol)
     setIsMuted(vol === 0)
   }
@@ -124,10 +153,11 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
     if (!video) return
 
     if (isMuted) {
+      video.muted = false
       video.volume = volume || 1
       setIsMuted(false)
     } else {
-      video.volume = 0
+      video.muted = true
       setIsMuted(true)
     }
   }
@@ -139,10 +169,8 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
     try {
       if (!document.fullscreenElement) {
         await container.requestFullscreen()
-        setIsFullscreen(true)
       } else {
         await document.exitFullscreen()
-        setIsFullscreen(false)
       }
     } catch (error) {
       console.error('Fullscreen error:', error)
@@ -172,12 +200,22 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
         className="w-full h-full object-contain"
         playsInline
         preload="metadata"
+        aria-label={title}
       />
 
       {/* Loading Spinner */}
-      {isLoading && (
+      {isLoading && !hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none">
           <Loader2 className="w-12 h-12 animate-spin" style={{ color: accentColor }} />
+        </div>
+      )}
+
+      {hasError && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black px-6 text-center">
+          <div>
+            <p className="text-white/80">视频暂时无法加载</p>
+            <p className="mt-2 text-sm text-white/45">请检查网络后重新打开播放器。</p>
+          </div>
         </div>
       )}
 
@@ -206,6 +244,7 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
             onClick={togglePlay}
+            aria-label="播放视频"
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full flex items-center justify-center transition-transform hover:scale-110"
             style={{
               background: `linear-gradient(135deg, ${accentColor}, ${accentColor}dd)`,
@@ -224,6 +263,7 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
             max={duration || 100}
             value={currentTime}
             onChange={handleProgressChange}
+            aria-label="视频播放进度"
             className="w-full h-1.5 rounded-full appearance-none cursor-pointer bg-white/20 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-125 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-none [&::-moz-range-thumb]:cursor-pointer"
             style={{
               background: `linear-gradient(to right, ${accentColor} ${progress}%, rgba(255,255,255,0.2) ${progress}%)`
@@ -243,6 +283,7 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
             {/* Play/Pause */}
             <button
               onClick={togglePlay}
+              aria-label={isPlaying ? '暂停视频' : '播放视频'}
               className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all hover:scale-110"
             >
               {isPlaying ? (
@@ -256,6 +297,7 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
             <div className="flex items-center gap-2 group/volume">
               <button
                 onClick={toggleMute}
+                aria-label={isMuted ? '取消静音' : '静音'}
                 className="w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors"
               >
                 {isMuted || volume === 0 ? (
@@ -272,6 +314,7 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
                 step={0.1}
                 value={isMuted ? 0 : volume}
                 onChange={handleVolumeChange}
+                aria-label="视频音量"
                 className="w-20 h-1 rounded-full appearance-none cursor-pointer bg-white/20 opacity-0 group-hover/volume:opacity-100 transition-opacity [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-none"
                 style={{
                   background: `linear-gradient(to right, ${accentColor} ${(isMuted ? 0 : volume) * 100}%, rgba(255,255,255,0.2) ${(isMuted ? 0 : volume) * 100}%)`
@@ -285,6 +328,7 @@ export default function VideoPlayer({ url, title, accentColor = '#00d4ff' }: Vid
             {/* Fullscreen */}
             <button
               onClick={toggleFullscreen}
+              aria-label={isFullscreen ? '退出全屏' : '进入全屏'}
               className="w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors"
             >
               {isFullscreen ? (

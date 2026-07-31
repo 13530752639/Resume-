@@ -1,19 +1,18 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import useAppStore from '../../store/useAppStore'
-import { MEDIA_URL } from '../../config/media'
 
 const papers = [
   {
     id: 'nca',
     title: '《INTERPRETING CHENG DIEYI FROM GENDER PERFORMATIVITY》',
-    image: `${MEDIA_URL}/academic/NCA邀请函.jpg`,
+    image: '/academic/nca.jpg',
     description: '本文依托巴特勒性别操演理论，结合都岚岚提出的戏剧、仪式、语言三维分析框架，探究《霸王别姬》程蝶衣女性化身份形成与悲剧成因。论文入选新传四大会议"NCA"。',
   },
   {
     id: 'tiaozhanbei',
     title: '《潮汕地区高生育率的文化密码》',
-    image: `${MEDIA_URL}/academic/tiaozhanbei.jpg`,
+    image: '/academic/tiaozhanbei.jpg',
     description: '历时2年，作为负责人在潮汕地区实地走访103个村，访谈318人，发放6000余份问卷。发表论文2篇，形成全国人大代表议案。',
   },
   {

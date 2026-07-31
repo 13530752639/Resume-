@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Play, Pause, Volume2, VolumeX, X } from 'lucide-react'
 import useAppStore from '../../store/useAppStore'
-import { MEDIA_URL } from '../../config/media'
+import { resolveMediaUrl } from '../../config/media'
 import categoriesData from '../../data/categories.json'
 import StreetPhotoModule from './StreetPhotoModule'
 import PortraitPhotoModule from './PortraitPhotoModule'
@@ -106,9 +106,9 @@ export default function WorksCategorySection() {
   }
 
   const getBgImage = () => {
-    if (isVideoPage) return `${MEDIA_URL}/covers/Webp/video-bg.jpg`
-    if (isPhotoPage) return `${MEDIA_URL}/covers/Webp/photo-bg.jpg`
-    return `${MEDIA_URL}/covers/Webp/video-bg.jpg`
+    if (isVideoPage) return '/covers/video-bg.jpg'
+    if (isPhotoPage) return '/covers/photo-bg.jpg'
+    return '/covers/video-bg.jpg'
   }
 
   const getBgOverlay = () => {
@@ -297,17 +297,17 @@ function FullscreenPlayer({
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [playerMode, setPlayerMode] = useState(false)
-  const [playing, setPlaying] = useState(true)
-  const [isMuted, setIsMuted] = useState(true)
+  const [playing, setPlaying] = useState(false)
+  const [isMuted, setIsMuted] = useState(false)
   const [speed, setSpeed] = useState(1)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [showControls, setShowControls] = useState(true)
   const [buffering, setBuffering] = useState(false)
+  const [videoError, setVideoError] = useState(false)
   const controlsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const work = works[activeIndex]
-  if (!work) return null
 
   // 同步视频时间
   useEffect(() => {
@@ -333,46 +333,45 @@ function FullscreenPlayer({
       video.removeEventListener('waiting', onWaiting)
       video.removeEventListener('canplay', onCanPlay)
     }
-  }, [activeIndex])
+  }, [activeIndex, playerMode])
 
   // 切换视频时重置状态
   useEffect(() => {
-    setPlaying(true)
-    setIsMuted(true)
+    setPlaying(false)
+    setIsMuted(false)
     setSpeed(1)
     setCurrentTime(0)
+    setDuration(0)
+    setBuffering(false)
+    setVideoError(false)
     setPlayerMode(false)
   }, [activeIndex])
 
   const enterPlayer = () => {
     setPlayerMode(true)
     setShowControls(true)
-    if (videoRef.current) {
-      videoRef.current.muted = false
-      videoRef.current.playbackRate = speed
-      setIsMuted(false)
-      videoRef.current.play()
-      setPlaying(true)
-    }
-    resetControlsTimer()
+    setIsMuted(false)
+    setVideoError(false)
   }
 
   const exitPlayer = () => {
+    videoRef.current?.pause()
     setPlayerMode(false)
-    setShowControls(false)
-    if (videoRef.current) {
-      videoRef.current.muted = true
-      setIsMuted(true)
-    }
+    setPlaying(false)
+    setBuffering(false)
   }
 
   const togglePlay = (e: React.MouseEvent) => {
     e.stopPropagation()
     if (!videoRef.current) return
-    if (playing) {
-      videoRef.current.pause()
+    if (videoRef.current.paused) {
+      setVideoError(false)
+      void videoRef.current.play().catch(() => {
+        setPlaying(false)
+        setBuffering(false)
+      })
     } else {
-      videoRef.current.play()
+      videoRef.current.pause()
     }
   }
 
@@ -407,10 +406,28 @@ function FullscreenPlayer({
 
   const resetControlsTimer = () => {
     if (controlsTimerRef.current) clearTimeout(controlsTimerRef.current)
-    if (playerMode) {
-      controlsTimerRef.current = setTimeout(() => setShowControls(false), 4000)
-    }
+    controlsTimerRef.current = setTimeout(() => setShowControls(false), 4000)
   }
+
+  useEffect(() => {
+    if (!playerMode) {
+      if (controlsTimerRef.current) clearTimeout(controlsTimerRef.current)
+      return
+    }
+
+    setShowControls(true)
+    resetControlsTimer()
+    const video = videoRef.current
+    if (video) {
+      video.muted = false
+      video.playbackRate = speed
+      void video.play().catch(() => setPlaying(false))
+    }
+
+    return () => {
+      if (controlsTimerRef.current) clearTimeout(controlsTimerRef.current)
+    }
+  }, [playerMode])
 
   const handlePlayerAreaClick = () => {
     if (!playerMode) return
@@ -419,6 +436,10 @@ function FullscreenPlayer({
   }
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0
+
+  // AnimatePresence 退出期间路由可能已切到一个没有全屏作品的分类。
+  // 所有 hooks 必须先执行，避免路由切换时出现 hooks 数量不一致并导致白屏。
+  if (!work) return null
 
   return (
     <motion.div
@@ -438,31 +459,35 @@ function FullscreenPlayer({
           transition={{ duration: 0.35 }}
           className="absolute inset-0"
         >
-          {isVideo && work.videoUrl ? (
+          {playerMode && isVideo && work.videoUrl ? (
+            videoError ? (
+              <div className="absolute inset-0 flex items-center justify-center px-6 text-center text-white/60">
+                视频暂时无法加载，请检查网络后重试。
+              </div>
+            ) : (
             <video
               ref={videoRef}
-              src={work.videoUrl}
+              src={resolveMediaUrl(work.videoUrl)}
+              poster={work.thumbnail}
               autoPlay
-              muted
+              muted={isMuted}
               playsInline
               preload="metadata"
-              className="absolute inset-0 w-full h-full object-cover"
-              onError={(e) => {
-                const target = e.currentTarget
-                target.style.display = 'none'
-                const parent = target.parentElement
-                if (parent) {
-                  parent.classList.add('flex', 'items-center', 'justify-center')
-                  parent.innerHTML = `<div class="text-white/40 text-sm">视频加载失败，请检查网络后重试</div>`
-                }
+              className="absolute inset-0 w-full h-full object-contain"
+              onError={() => {
+                setVideoError(true)
+                setBuffering(false)
+                setPlaying(false)
               }}
             />
+            )
           ) : (
             <img
               src={work.thumbnail}
               alt={work.title}
               className="absolute inset-0 w-full h-full object-cover"
               decoding="async"
+              loading="eager"
             />
           )}
         </motion.div>
@@ -480,6 +505,7 @@ function FullscreenPlayer({
           <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 md:px-12 lg:px-16 py-6">
             <button
               onClick={onBack}
+              aria-label={isMedia ? '返回首页' : '返回分类'}
               className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -506,8 +532,17 @@ function FullscreenPlayer({
 
           {/* 居中文字 + 点击进入播放器 */}
           <div
+            role={isVideo && work.videoUrl ? 'button' : undefined}
+            tabIndex={isVideo && work.videoUrl ? 0 : undefined}
+            aria-label={isVideo && work.videoUrl ? `播放《${work.title}》` : undefined}
             className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 cursor-pointer"
             onClick={() => isVideo && work.videoUrl && enterPlayer()}
+            onKeyDown={(event) => {
+              if ((event.key === 'Enter' || event.key === ' ') && isVideo && work.videoUrl) {
+                event.preventDefault()
+                enterPlayer()
+              }
+            }}
           >
             <motion.div
               key={`text-${activeIndex}`}
@@ -556,6 +591,7 @@ function FullscreenPlayer({
           {/* 退出播放器按钮 */}
           <button
             onClick={exitPlayer}
+            aria-label="退出播放器"
             className="absolute top-4 right-4 z-40 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center transition-colors"
           >
             <X className="w-5 h-5 text-white" />
@@ -567,6 +603,7 @@ function FullscreenPlayer({
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               onClick={togglePlay}
+              aria-label="播放视频"
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center backdrop-blur-sm transition-colors"
             >
               <Play className="w-10 h-10 text-white ml-1" fill="white" />
@@ -599,6 +636,7 @@ function FullscreenPlayer({
                     max={duration || 100}
                     value={currentTime}
                     onChange={handleSeek}
+                    aria-label="视频播放进度"
                     className="w-full h-1 rounded-full appearance-none cursor-pointer bg-white/20
                       [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4
                       [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-red-600 [&::-webkit-slider-thumb]:cursor-pointer
@@ -618,12 +656,20 @@ function FullscreenPlayer({
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     {/* 播放/暂停 */}
-                    <button onClick={togglePlay} className="text-white hover:text-red-400 transition-colors">
+                    <button
+                      onClick={togglePlay}
+                      aria-label={playing ? '暂停视频' : '播放视频'}
+                      className="text-white hover:text-red-400 transition-colors"
+                    >
                       {playing ? <Pause className="w-6 h-6" fill="white" /> : <Play className="w-6 h-6" fill="white" />}
                     </button>
 
                     {/* 音量 */}
-                    <button onClick={toggleMute} className="text-white hover:text-red-400 transition-colors">
+                    <button
+                      onClick={toggleMute}
+                      aria-label={isMuted ? '取消静音' : '静音'}
+                      className="text-white hover:text-red-400 transition-colors"
+                    >
                       {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
                     </button>
                   </div>
@@ -631,6 +677,7 @@ function FullscreenPlayer({
                   {/* 倍速 */}
                   <button
                     onClick={cycleSpeed}
+                    aria-label={`当前播放速度 ${speed} 倍，点击切换`}
                     className="px-3 py-1 rounded text-white/80 hover:text-white hover:bg-white/10 text-sm transition-colors"
                   >
                     {speed}x
@@ -650,6 +697,8 @@ function FullscreenPlayer({
               <button
                 key={w.id}
                 onClick={() => onIndexChange(i)}
+                aria-label={`查看第 ${i + 1} 个作品：${w.title}`}
+                aria-current={i === activeIndex ? 'true' : undefined}
                 className={`w-8 h-8 rounded-full text-xs font-medium transition-all duration-300 flex items-center justify-center ${
                   i === activeIndex
                     ? 'bg-red-600 text-white shadow-lg shadow-red-600/30 scale-110'

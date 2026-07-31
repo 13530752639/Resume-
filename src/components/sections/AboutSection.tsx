@@ -1,7 +1,5 @@
 import { motion } from 'framer-motion'
-import { Search } from 'lucide-react'
 import useAppStore from '../../store/useAppStore'
-import { MEDIA_URL } from '../../config/media'
 
 export default function AboutSection() {
   const { navigateTo } = useAppStore()
@@ -22,9 +20,6 @@ export default function AboutSection() {
           <button onClick={() => navigateTo('media-works')} className="hover:text-black transition-colors">自媒体作品</button>
           <span className="text-gray-300">|</span>
           <button onClick={() => navigateTo('academic-works')} className="hover:text-black transition-colors">学术作品</button>
-          <button className="p-2 hover:bg-gray-100 rounded-full transition-colors ml-2">
-            <Search className="w-5 h-5" />
-          </button>
         </nav>
       </div>
 
@@ -52,10 +47,11 @@ export default function AboutSection() {
             }}
           >
             <img
-              src={`${MEDIA_URL}/covers/web/DSC02125_sm.jpg`}
-              alt=""
+              src="/covers/about.jpg"
+              alt="张泽龙影视创作工作照"
               className="w-full h-auto rounded-xl object-cover"
               loading="eager"
+              decoding="async"
             />
           </motion.div>
 
@@ -69,10 +65,11 @@ export default function AboutSection() {
             {/* 圆形头像 — 裁剪头部区域 */}
             <div className="w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden shadow-lg flex-shrink-0">
               <img
-                src={`${MEDIA_URL}/covers/compressed/person.jpg`}
+                src="/covers/person.jpg"
                 alt="张泽龙"
                 className="w-full h-full object-cover object-[35%_15%]"
                 loading="eager"
+                decoding="async"
               />
             </div>
 

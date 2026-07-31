@@ -51,7 +51,7 @@
 ## 🚀 快速开始
 
 ### 环境要求
-- Node.js >= 16.x
+- Node.js >= 18.x
 - npm 或 pnpm
 
 ### 安装步骤
@@ -257,9 +257,10 @@ npm run preview
 ## 💡 使用提示
 
 1. **视频优化建议**:
-   - 分辨率：1080p 或 4K
-   - 编码：H.264 (MP4) 或 VP9 (WebM)
-   - 码率：8-15 Mbps (1080p) / 25-50 Mbps (4K)
+   - 作品集网页优先提供 1080p H.264 + AAC MP4，像素格式使用 `yuv420p`
+   - 1080p 建议平均码率 2.5-4 Mbps；720p 建议 1.5-2.5 Mbps
+   - 较长作品或弱网访问场景建议增加 HLS 自适应码率版本
+   - 视频使用 R2 自定义域名；详见 `docs/MEDIA_PRODUCTION_SETUP.md`
    
 2. **图片优化建议**:
    - 格式：WebP（优先）/ JPG
@@ -273,7 +274,8 @@ npm run preview
 
 4. **性能监控**:
    - 推荐使用 Lighthouse 进行性能测试
-   - 目标指标：LCP < 2.5s, FID < 100ms, CLS < 0.1
+   - 目标指标：LCP < 2.5s, INP < 200ms, CLS < 0.1
+   - 提交或部署前运行 `npm run check` 和 `npm run verify:media`
 
 ## 📄 许可证
 

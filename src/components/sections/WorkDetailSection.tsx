@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Play, Search, X } from 'lucide-react'
+import { LayoutGrid, Play, X } from 'lucide-react'
 import useAppStore from '../../store/useAppStore'
 import VideoPlayer from '../ui/VideoPlayer'
+import { resolveMediaUrl } from '../../config/media'
 
 export default function WorkDetailSection() {
   const { selectedWork, navigateTo } = useAppStore()
@@ -13,7 +14,7 @@ export default function WorkDetailSection() {
     title: '精选作品',
     titleEn: 'Featured Work',
     category: '',
-    thumbnail: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cinematic+film+scene+dramatic+lighting+emotional+moment+film+still+professional+cinematography&image_size=landscape_16_9',
+    thumbnail: '/covers/home.jpg',
     duration: '',
     description: '',
     videoUrl: null
@@ -38,22 +39,12 @@ export default function WorkDetailSection() {
     <section className="relative h-screen w-full overflow-hidden bg-black">
       {!showVideo && (
         <div className="absolute inset-0">
-          {work.videoUrl ? (
-            <video
-              src={work.videoUrl}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-cover opacity-60"
-            />
-          ) : (
-            <img
-              src={work.thumbnail}
-              alt={work.title}
-              className="w-full h-full object-cover"
-            />
-          )}
+          <img
+            src={work.thumbnail}
+            alt={work.title}
+            className="w-full h-full object-cover opacity-70"
+            decoding="async"
+          />
         </div>
       )}
 
@@ -124,9 +115,11 @@ export default function WorkDetailSection() {
 
               <button
                 onClick={() => navigateTo('video-works')}
+                aria-label="浏览影像作品"
+                title="浏览影像作品"
                 className="p-2 hover:bg-white/10 rounded-full transition-colors"
               >
-                <Search className="w-5 h-5 text-white" />
+                <LayoutGrid className="w-5 h-5 text-white" />
               </button>
             </div>
           </div>
@@ -147,7 +140,7 @@ export default function WorkDetailSection() {
             </button>
 
             <VideoPlayer
-              url={work.videoUrl}
+              url={resolveMediaUrl(work.videoUrl)}
               title={work.title}
               accentColor="#e63946"
             />
